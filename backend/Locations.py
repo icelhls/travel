@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[5]:
 
 
 import pandas
 import re
 import math
-df = pandas.read_csv("T:/weblocaldeal-back-end/all places list.csv",error_bad_lines=False, engine="python")
+import sys
+import json
+df = pandas.read_csv("F:/react projects/travel/backend/all places list.csv",error_bad_lines=False, engine="python")
 
 
 # In[2]:
@@ -24,12 +26,15 @@ df.head()
 df2=df[["no","placeUrl","title","rating","category","latitude","longitude","pic1","pic2","pic3","pic4","pic5"]]
 
 
-# In[17]:
+# In[40]:
 
 
 df3 = df2.dropna(subset=['latitude'])
-inputLong=74.2227181
-inputLat=31.4137617
+
+inputLong=(float(sys.argv[1]))
+inputLat=(float(sys.argv[2]))
+
+
 
 def degreesToRadians(degrees):
   return degrees * math.pi / 180;
@@ -55,10 +60,18 @@ for index,row in df3.iterrows():
       calCoor=distanceInKmBetweenEarthCoordinates(inputLat,inputLong,int(row['latitude']),int(row['longitude']))
       s1 = pandas.Series([calCoor],index=['coordinates'])
       row1=row.append(s1)
+   
       mydf2.append(row1)
 
 newlist = sorted(mydf2, key=lambda x: x.coordinates,)
-print(newlist)
+jsonConveredList=[]
+for x in newlist[:10]:
+    #x1=x.to_json()
+    x1=x.to_dict()
+    jsonConveredList.append(x1)
+    
+jsonStr = json.dumps(jsonConveredList)
+print(jsonStr)
 
 
 # In[ ]:

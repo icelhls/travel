@@ -1,303 +1,366 @@
 import React,{useEffect} from 'react'
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { Ionicons } from '@expo/vector-icons';
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { View, Text, Image, ImageBackground, TextInput,StatusBar} from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
+
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ScrollView,
+    TextInput,
+    ImageBackground,
+    KeyboardAvoidingView,
+    StatusBar
+  } from 'react-native';
+
+  import colors from '../assets/colors/colors';
+  import Feather from 'react-native-vector-icons/Feather';
+  import Entypo from '@expo/vector-icons/Entypo';
+  import activitiesData from '../assets/data/activitiesData';
+  import discoverCategoriesData from '../assets/data/discoverCategoriesData';
+  import learnMoreData from '../assets/data/learnMoreData';
+  import discoverData from '../assets/data/discoverData';
+  import {SafeAreaView} from 'react-native-safe-area-context';
+  import profile from '../assets/images/person.png';
+  import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
+  import { LinearGradient } from 'expo-linear-gradient';
+
+  
+  Feather.loadFont();
+Entypo.loadFont();
 
 
-export  function Home() {
+
+export  function Home({navigation}) {
+
+
+
+  
+  const renderDiscoverItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Details')
+        }>
+        <ImageBackground
+          source={item.image}
+          style={[
+            styles.discoverItem,
+            {marginLeft: item.id === 'discover-1' ? 20 : 0},
+          ]}
+          imageStyle={styles.discoverItemImage}>
+          <Text style={styles.discoverItemTitle}>{item.title}</Text>
+          <View style={styles.discoverItemLocationWrapper}>
+            <Entypo name="location-pin" size={18} color={colors.white} />
+            <Text style={styles.discoverItemLocationText}>{item.location}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderActivityItem = ({item}) => {
+    return (
+      <View
+        style={[
+          styles.activityItemWrapper,
+          {
+            marginLeft: item.id === 'activities-1' ? 20 : 0,
+          },
+        ]}>
+        <Image source={item.image} style={styles.activityItemImage} />
+        <Text style={styles.activityItemText}>{item.title}</Text>
+      </View>
+    );
+  };
+
+  const renderLearnMoreItem = ({item}) => {
+    return (
+      <ImageBackground
+        source={item.image}
+        style={[
+          styles.learnMoreItem,
+          {
+            marginLeft: item.id === 'learnMore-1' ? 20 : 0,
+          },
+        ]}
+        imageStyle={styles.learnMoreItemImage}>
+        <Text style={styles.learnMoreItemText}>{item.title}</Text>
+      </ImageBackground>
+    );
+  };
+
  
     return (
         <>
-       <StatusBar barStyle="light-content" backgroundColor="royalblue" />
+        <View style={styles.container}>
+  <StatusBar barStyle="light-content" backgroundColor="#4CCDFB" />
+      <ScrollView>
+     
+      <View style={{
+               backgroundColor:"#4CCDFB",
+               height:150,
+               borderBottomLeftRadius:20,
+               borderBottomRightRadius:20,
+               paddingHorizontal:20
+           }}>
 
-        <ImageBackground
-        source={require("../images/back3.jpg")}
-        style={{ width: "100%", height: "100%" }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 25,
-            alignItems: "center",
-            paddingHorizontal: 30,
-          }}
-        >
-          <Icon name="menu" size={30} color="black" style={{ width: 20 }} />
-          <Icon
-            name="account-circle"
-            size={33}
-            color="black"
-            style={{ marginLeft: 230 }}
-          />
+
+
+<Feather
+              name="menu"
+              size={32}
+              color={colors.white}
+              style={{
+            
+            
+                marginTop:30
+            }}
+            />
+               <View style={{
+                   flexDirection:"row",
+                   alignItems:"center",
+                  
+                   width:"100%"
+               }}>
+                   <View style={{width:"50%"}}>
+                        <Text style={{
+                            fontSize:28,
+                            color:"#FFF",
+                            fontWeight:"bold"
+                        }}>Hi Ibad</Text>
+                   </View>
+                   <View style={{width:"50%",alignItems:"flex-end"}}>
+                        <Image
+                           source={{
+                            uri: 'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
+                          }}
+                            style={{height:60,width:60,borderRadius:60}}
+                        />
+                   </View>
+               </View>
+
+
+               </View>
+
+
+
+        <SafeAreaView>
+        <View style={{
+                   backgroundColor:"#FFF",
+                   paddingVertical:8,
+                   paddingHorizontal:20,
+                   marginHorizontal:20,
+                   borderRadius:15,
+                   marginTop:10,
+                 
+               }}>
+                   <TextInput
+                        placeholder="Search"
+                        placeholderTextColor="#b1e5d3"
+                        style={{
+                            fontWeight:"bold",
+                            fontSize:18,
+                            width:260
+                        }}
+                   />
+                   {/* <Image
+                    // source={require('../images/3.png')}
+                    style={{height:20,width:20}}
+                   /> */}
+               </View>
+          
+          
+          {/* <View style={styles.menuWrapper}>
+            <Feather
+              name="menu"
+              size={32}
+              color={colors.black}
+              style={styles.menuIcon}
+            />
+            <Image source={profile} style={styles.profileImage} />
+          </View>
+          
+          */}
+        </SafeAreaView>
+
+        {/* Discover */}
+        <View style={styles.discoverWrapper}>
+          <Text style={styles.discoverTitle}>Discover</Text>
+          {/* <View style={styles.discoverCategoriesWrapper}>
+            <Text style={[styles.discoverCategoryText, {color: colors.orange}]}>
+              All
+            </Text>
+            <Text style={styles.discoverCategoryText}>Destinations</Text>
+            <Text style={styles.discoverCategoryText}>Cities</Text>
+            <Text style={styles.discoverCategoryText}>Experiences</Text>
+          </View> */}
+          <View style={styles.discoverItemsWrapper}>
+            <FlatList
+              data={discoverData}
+              renderItem={renderDiscoverItem}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
         </View>
 
-        <View style={{ paddingHorizontal: 25, marginTop: 25 }}>
-          <Text
-            style={{
-              fontSize: 40,
-              color: "royalblue",
-              fontFamily: "RobotoBold",
-            }}
-          >
-            Travel App
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 15,
-              paddingVertical: 10,
-              paddingRight: 80,
-              lineHeight: 22,
-              fontFamily: "RobotoBold",
-              color: "royalblue",
-            }}
-          >
-            Start Travel with us 
-
-          </Text>
-
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "#FFF",
-              borderRadius: 40,
-              alignItems: "center",
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              marginTop: 30,
-            }}
-          >
-            <Image
-              source={require("../images/search.png")}
-              style={{ height: 14, width: 14 }}
-            />
-            <TextInput
-              placeholder="Where You Want to go"
-              style={{ paddingHorizontal: 20, fontSize: 15, color: "black" }}
+        {/* Activities */}
+        <View style={styles.activitiesWrapper}>
+          <Text style={styles.activitiesTitle}>Category</Text>
+          <View style={styles.activitiesItemsWrapper}>
+            <FlatList
+              data={activitiesData}
+              renderItem={renderActivityItem}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
             />
           </View>
+        </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginRight: -40, marginTop: 30 }}
-          >
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Detail")}
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#5facdb",
-              }}
-            >
-              <Image
-                source={require("../images/p.png")}
-                style={{ height: 24, width: 24 }}
-              />
-            </TouchableOpacity>
-
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#ff5c83",
-                marginHorizontal: 22,
-              }}
-            >
-              <Icon name="office-building" color="white" size={32} />
-            </View>
-
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#ffa06c",
-              }}
-            >
-              <Icon name="hotel" color="white" size={32} />
-            </View>
-
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                height: 66,
-                width: 66,
-                borderRadius: 50,
-                backgroundColor: "#bb32fe",
-                marginLeft: 22,
-              }}
-            >
-              <Icon name="dots-horizontal" color="white" size={32} />
-            </View>
-          </ScrollView>
-
-          <Text
-            style={{
-              color: "#FFF",
-              fontFamily: "RobotoRegular",
-              marginTop: 50,
-              fontSize: 17,
-            }}
-          >
-            Recommended
-          </Text>
+        {/* Learn More */}
+        <View style={styles.learnMoreWrapper}>
+          <Text style={styles.learnMoreTitle}>Near by</Text>
+          <View style={styles.learnMoreItemsWrapper}>
+            <FlatList
+              data={learnMoreData}
+              renderItem={renderLearnMoreItem}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
           </View>
-
-{/*  --------------------------------------------------recomendaion list --------------------------------------------*/}
-
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ paddingHorizontal: 25, marginTop: 30 }}
-          >
-              
-            <View
-              style={{
-                backgroundColor: "#FEFEFE",
-                height: 200,
-                width: 190,
-                borderRadius: 15,
-                padding: 5,
-              }}
-            >
-              <Image
-                source={require("../images/1.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 130 }}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: 150,
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    paddingHorizontal: 5,
-                    paddingVertical: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "RobotoRegular",
-                      fontSize: 16,
-                      color: "black",
-                    }}
-                  >
-                    Kalar Khar Lak
-                  </Text>
-                </View>
-                <Icon name="map-marker" size={25} color="#ff5c83" />
-              </View>
-            </View>
-
-            <View
-              style={{
-                backgroundColor: "#FEFEFE",
-                height: 200,
-                width: 190,
-                borderRadius: 15,
-                padding: 5,
-                marginHorizontal: 20,
-              }}
-            >
-              <Image
-                source={require("../images/2.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 130 }}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: 150,
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    paddingHorizontal: 5,
-                    paddingVertical: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "RobotoRegular",
-                      fontSize: 16,
-                      color: "black",
-                    }}
-                  >
-                   Honza Vally
-                  </Text>
-                </View>
-                <Icon name="map-marker" size={25} color="#5facdb" />
-              </View>
-            </View>
-
-            <View
-              style={{
-                backgroundColor: "#FEFEFE",
-                height: 200,
-                width: 190,
-                borderRadius: 15,
-                padding: 5,
-              }}
-            >
-              <Image
-                source={require("../images/3.jpg")}
-                style={{ width: 180, borderRadius: 10, height: 130 }}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: 150,
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    paddingHorizontal: 5,
-                    paddingVertical: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "RobotoRegular",
-                      fontSize: 11,
-                      color: "#a2a2db",
-                    }}
-                  >
-                    Lorem impsum dolor sit amet, consectetuer adipscing elit,
-                  </Text>
-                </View>
-                <Icon name="map-marker" size={25} color="#bb32fe" />
-              </View>
-            </View>
-            
-          </ScrollView>
-          
-       
-
-        
-
-      </ImageBackground>
-
-
-
-
-
+        </View>
+      </ScrollView>
+    </View>
      
 
       </>
     )
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    color: colors.white,
+  },
+  menuWrapper: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 52,
+    height: 52,
+    borderRadius: 10,
+  },
+  discoverWrapper: {
+    // marginHorizontal: 20,
+   marginTop:10
+  },
+  discoverTitle: {
+    marginHorizontal: 20,
+    color:'black',
+ 
+    fontSize: 32,
+  },
+  discoverCategoriesWrapper: {
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  discoverCategoryText: {
+    marginRight: 30,
+
+    fontSize: 16,
+    color: colors.gray,
+  },
+  discoverItemsWrapper: {
+    paddingVertical: 20,
+  },
+  discoverItem: {
+    width: 170,
+    height: 250,
+    justifyContent: 'flex-end',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    marginRight: 20,
+  },
+  discoverItemImage: {
+    borderRadius: 20,
+  },
+  discoverItemTitle: {
+
+    fontSize: 18,
+    color: colors.white,
+  },
+  discoverItemLocationWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  discoverItemLocationText: {
+    marginLeft: 5,
+ 
+    fontSize: 14,
+    color: colors.white,
+  },
+  activitiesWrapper: {
+    marginTop: 10,
+  },
+  activitiesTitle: {
+    marginHorizontal: 20,
+   
+    fontSize: 24,
+    color: colors.black,
+  },
+  activitiesItemsWrapper: {
+    paddingVertical: 20,
+  },
+  activityItemWrapper: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  activityItemImage: {
+    width: 36,
+  },
+  activityItemText: {
+    marginTop: 5,
+
+    fontSize: 14,
+    color: colors.gray,
+  },
+  learnMoreWrapper: {
+    marginTop: 10,
+  },
+  learnMoreTitle: {
+    marginHorizontal: 20,
+   
+    fontSize: 24,
+    color: colors.black,
+  },
+  learnMoreItemsWrapper: {
+    paddingVertical: 20,
+  },
+  learnMoreItem: {
+    width: 170,
+    height: 180,
+    justifyContent: 'flex-end',
+    marginRight: 20,
+  },
+  learnMoreItemImage: {
+    borderRadius: 20,
+  },
+  learnMoreItemText: {
+
+    fontSize: 18,
+    color: colors.white,
+    marginHorizontal: 10,
+    marginVertical: 20,
+  },
+});

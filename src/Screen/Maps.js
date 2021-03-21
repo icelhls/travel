@@ -40,18 +40,18 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
         setErrorMsg('Permission to access location was denied');
         return;
       }
-alert('hello')
+
       let location = await Location.getCurrentPositionAsync({});
       // var myModule = require('../../config');
-    const response= await fetch('http://192.168.1.107:5000'+"/api/getLocations", {
-      method: "post",
-      headers: {
-        "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-      },
-      body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
-    });
-    const json=await response.json();  
-    console.warn(json)
+    // const response= await fetch('http://192.168.1.107:5000'+"/api/getLocations", {
+    //   method: "post",
+    //   headers: {
+    //     "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+    //   },
+    //   body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
+    // });
+    // const json=await response.json();  
+    // console.warn(json)
       setLocation(location); 
       setlat(location.coords.latitude)
 
@@ -211,7 +211,7 @@ alert('hello')
                 >
                   <Text
                     style={{
-                      fontFamily: "RobotoRegular",
+                  
                       fontSize: 16,
                       color: "black",
                     }}
@@ -253,7 +253,7 @@ alert('hello')
                 >
                   <Text
                     style={{
-                      fontFamily: "RobotoRegular",
+                   
                       fontSize: 16,
                       color: "black",
                     }}
@@ -295,7 +295,7 @@ alert('hello')
                 >
                   <Text
                     style={{
-                      fontFamily: "RobotoRegular",
+                     
                       fontSize: 11,
                       color: "#a2a2db",
                     }}

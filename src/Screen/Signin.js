@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
       color: '#FCFDFF',
-      fontFamily: 'GoogleSans-Bold',
+     
       fontSize: 24,
       marginBottom: 30,
       position: 'relative',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#2D3057',
     },
     Input: {
-      fontFamily: 'Poppins-Bold',
+     
       fontSize: 12,
     },
     loginAs: {
@@ -150,11 +150,11 @@ const styles = StyleSheet.create({
     loginText: {
       color: '#2D3057',
       fontSize: 10,
-      fontFamily: 'GoogleSans-Bold',
+    
       fontWeight: 'bold',
     },
     cboxText: {
-      fontFamily: 'GoogleSans-Medium',
+   
       fontSize: 10,
     },
     Button: {
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
       color: 'white',
-      fontFamily: 'GoogleSans-Medium',
+   
       fontSize: 12,
     },
     btnuser:{
