@@ -10,6 +10,7 @@ import Icon2 from '@expo/vector-icons/Entypo';
 import { Home } from '../Screen/Home';
 import Signin from '../Screen/Signin';
 import Test from '../Screen/Test';
+import Details from '../Screen/Details';
 
 
 
@@ -58,11 +59,11 @@ const AppNavigator = () => {
           headerShown: false
         }}
         >
-              <Stack.Screen  name="Test" component={Test} />             
-           {/* <Stack.Screen  name="Signin" component={Signin} /> */}
-                   {/* <Stack.Screen  name="Home" component={BottomTabNavigator} /> */}
-             
-                   
+              {/* <Stack.Screen  name="Test" component={Test} />              */}
+           <Stack.Screen  name="Signin" component={Signin} />
+                    <Stack.Screen  name="Home" component={BottomTabNavigator} />
+                   <Stack.Screen  name="Details" component={Details} />   
+                    
         </Stack.Navigator>
         </NavigationContainer>
     )

@@ -9,6 +9,7 @@ import {
     TextInput,
     ImageBackground,
     KeyboardAvoidingView,
+    Dimensions,
     StatusBar
   } from 'react-native';
 
@@ -24,7 +25,9 @@ import {
   import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
   import { LinearGradient } from 'expo-linear-gradient';
 
-  
+  import Icon from '@expo/vector-icons/MaterialIcons';
+
+
   Feather.loadFont();
 Entypo.loadFont();
 
@@ -32,7 +35,24 @@ Entypo.loadFont();
 
 export  function Home({navigation}) {
 
-
+  const categoryIcons = [
+    <Icon name="flight" size={25} color={colors.primary} />,
+    <Icon name="beach-access" size={25} color={colors.primary} />,
+    <Icon name="near-me" size={25} color={colors.primary} />,
+    <Icon name="place" size={25} color={colors.primary} />,
+  ];
+  const ListCategories = () => {
+    return (
+      <View style={styles.categoryContainer}>
+        {categoryIcons.map((icon, index) => (
+          <View key={index} style={styles.iconContainer}>
+            {icon}
+  
+          </View>
+        ))}
+      </View>
+    );
+  };
 
   
   const renderDiscoverItem = ({item}) => {
@@ -93,10 +113,10 @@ export  function Home({navigation}) {
     return (
         <>
         <View style={styles.container}>
-  <StatusBar barStyle="light-content" backgroundColor="#4CCDFB" />
+  <StatusBar barStyle="dark-content" backgroundColor="#4CCDFB" />
       <ScrollView>
      
-      <View style={{
+       <View style={{
                backgroundColor:"#4CCDFB",
                height:150,
                borderBottomLeftRadius:20,
@@ -140,12 +160,33 @@ export  function Home({navigation}) {
                </View>
 
 
-               </View>
+               </View> 
 
 
 
         <SafeAreaView>
-        <View style={{
+
+
+        
+           
+            <View style={styles.inputContainer}>
+              <Icon name="search" size={28} />
+              <TextInput
+                placeholder="Search place"
+                style={{
+                  fontWeight:"bold",
+                  fontSize:18,
+                  width:260
+              }}
+              />
+            </View>
+         
+     
+
+
+
+
+        {/* <View style={{
                    backgroundColor:"#FFF",
                    paddingVertical:8,
                    paddingHorizontal:20,
@@ -163,11 +204,11 @@ export  function Home({navigation}) {
                             width:260
                         }}
                    />
-                   {/* <Image
+                    <Image
                     // source={require('../images/3.png')}
                     style={{height:20,width:20}}
-                   /> */}
-               </View>
+                   /> 
+               </View> 
           
           
           {/* <View style={styles.menuWrapper}>
@@ -208,7 +249,10 @@ export  function Home({navigation}) {
         {/* Activities */}
         <View style={styles.activitiesWrapper}>
           <Text style={styles.activitiesTitle}>Category</Text>
-          <View style={styles.activitiesItemsWrapper}>
+
+          <ListCategories />
+
+          {/* <View style={styles.activitiesItemsWrapper}>
             <FlatList
               data={activitiesData}
               renderItem={renderActivityItem}
@@ -216,7 +260,7 @@ export  function Home({navigation}) {
               horizontal
               showsHorizontalScrollIndicator={false}
             />
-          </View>
+          </View> */}
         </View>
 
         {/* Learn More */}
@@ -259,8 +303,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   discoverWrapper: {
-    // marginHorizontal: 20,
-   marginTop:10
+     marginVertical: 10,
+   marginTop:10,
   },
   discoverTitle: {
     marginHorizontal: 20,
@@ -363,4 +407,50 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 20,
   },
+  header: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: colors.primary,
+  },
+  headerTitle: {
+    color: colors.white,
+    fontWeight: 'bold',
+    fontSize: 23,
+  },
+  inputContainer: {
+    
+   
+    paddingHorizontal: 20,
+    
+    height: 60,
+    width: '90%',
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    // position: 'absolute',
+    marginLeft:20,
+    top: -20,
+    flexDirection: 'row',
+    
+    alignItems: 'center',
+    elevation: 12,
+  },
+  categoryContainer: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  iconContainer: {
+    height: 60,
+    width: 60,
+    backgroundColor: colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+
+
+
 });

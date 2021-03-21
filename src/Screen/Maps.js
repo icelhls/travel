@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MapViewDirections from 'react-native-maps-directions';
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
-import { StyleSheet,ScrollView,Image, Text,TextInput,TouchableOpacity,Animated, View, Dimensions } from 'react-native';
+import { StyleSheet,ScrollView,Image, Text,TextInput,TouchableOpacity,Animated, View, Dimensions,StatusBar } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons';
 import { FontAwesome,AntDesign,FontAwesome5 } from '@expo/vector-icons'; 
 import Iconui from "@expo/vector-icons/MaterialCommunityIcons";
@@ -27,8 +27,8 @@ export  function Maps() {
 
   const origin = {latitude: lat, longitude: long};
 const destination = {latitude: 33.6844, longitude: 73.0479};
-const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
-
+// const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
+const GOOGLE_MAPS_APIKEY = '';
 
   useEffect(() => {
 
@@ -81,6 +81,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
    });
     return (
         <>
+         
       <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
@@ -193,7 +194,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
               }}
             >
               <Image
-                source={require("../images/1.jpg")}
+                source={require("../assets/images/beach.png")}
                 style={{ width: 180, borderRadius: 10, height: 130 }}
               />
               <View
@@ -235,7 +236,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
               }}
             >
               <Image
-                source={require("../images/2.jpg")}
+                source={require("../assets/images/beach.png")}
                 style={{ width: 180, borderRadius: 10, height: 130 }}
               />
               <View
@@ -277,7 +278,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
               }}
             >
               <Image
-                source={require("../images/3.jpg")}
+                source={require("../assets/images/beach.png")}
                 style={{ width: 180, borderRadius: 10, height: 130 }}
               />
               <View

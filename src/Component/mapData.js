@@ -1,8 +1,8 @@
 const Images = [
-    { image: require("../images/3.jpg") },
-    { image: require("../images/3.jpg") },
-    { image: require("../images/3.jpg") },
-    { image: require("../images/3.jpg") },
+    { image: require("../assets/images/beach.png") },
+    { image: require("../assets/images/boatbeach.png") },
+    { image: require("../assets/images/australia.png") },
+    { image: require("../assets/images/kayak.png") },
 ];
 
 export const markers = [
