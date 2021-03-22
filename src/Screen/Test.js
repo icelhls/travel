@@ -1,410 +1,402 @@
-import React from 'react'
+  
+import React, { useEffect } from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    ScrollView,
-    TextInput,
-    ImageBackground,
-    KeyboardAvoidingView,
-  } from 'react-native';
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  Animated,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  Dimensions,
+  Platform,
+} from "react-native";
+import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 
- 
-  import colors from '../assets/colors/colors';
-  import Feather from 'react-native-vector-icons/Feather';
-  import Entypo from '@expo/vector-icons/Entypo';
-  import activitiesData from '../assets/data/activitiesData';
-  import discoverCategoriesData from '../assets/data/discoverCategoriesData';
-  import learnMoreData from '../assets/data/learnMoreData';
-  import discoverData from '../assets/data/discoverData';
-  import {SafeAreaView} from 'react-native-safe-area-context';
-  import profile from '../assets/images/person.png';
-  import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-  import { LinearGradient } from 'expo-linear-gradient'
+import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Fontisto from '@expo/vector-icons/Fontisto';
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import { markers, mapDarkStyle, mapStandardStyle } from '../Component/mapData';
 
 
-  Feather.loadFont();
-Entypo.loadFont();
+import { useTheme } from '@react-navigation/native';
 
-export default function Test({navigation}) {
+const { width, height } = Dimensions.get("window");
+const CARD_HEIGHT = 220;
+const CARD_WIDTH = width * 0.5;
+const SPACING_FOR_CARD_INSET = width * 0.1 -20;
 
+export default function Test() {
 
-    const renderDiscoverItem = ({item}) => {
-        return (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Details', {
-                item: item,
-              })
-            }>
-            <ImageBackground
-              source={item.image}
-              style={[
-                styles.discoverItem,
-                {marginLeft: item.id === 'discover-1' ? 20 : 0},
-              ]}
-              imageStyle={styles.discoverItemImage}>
-              <Text style={styles.discoverItemTitle}>{item.title}</Text>
-              <View style={styles.discoverItemLocationWrapper}>
-                <Entypo name="location-pin" size={18} color={colors.white} />
-                <Text style={styles.discoverItemLocationText}>{item.location}</Text>
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        );
-      };
-    
-      const renderActivityItem = ({item}) => {
-        return (
-          <View
-            style={[
-              styles.activityItemWrapper,
-              {
-                marginLeft: item.id === 'activities-1' ? 20 : 0,
-              },
-            ]}>
-            <Image source={item.image} style={styles.activityItemImage} />
-            <Text style={styles.activityItemText}>{item.title}</Text>
-          </View>
-        );
-      };
-    
-      const renderLearnMoreItem = ({item}) => {
-        return (
-          <ImageBackground
-            source={item.image}
-            style={[
-              styles.learnMoreItem,
-              {
-                marginLeft: item.id === 'learnMore-1' ? 20 : 0,
-              },
-            ]}
-            imageStyle={styles.learnMoreItemImage}>
-            <Text style={styles.learnMoreItemText}>{item.title}</Text>
-          </ImageBackground>
-        );
-      };
-    
+  const theme = useTheme();
 
-
-    return (
-        
-        <View style={styles.container}>
-
-            
-                {/* <View style={{
-               backgroundColor:"#4C5EFB",
-               height:"18%",
-               borderBottomLeftRadius:20,
-               borderBottomRightRadius:20,
-               paddingHorizontal:20
-           }}>
-               
-
-
-<Feather
-              name="menu"
-              size={32}
-              color={colors.white}
-              style={{
-            
-            
-                marginTop:30
-            }}
-            />
-               <View style={{
-                   flexDirection:"row",
-                   alignItems:"center",
-                  
-                   width:"100%"
-               }}>
-                   <View style={{width:"50%"}}>
-                        <Text style={{
-                            fontSize:28,
-                            color:"#FFF",
-                            fontWeight:"bold"
-                        }}>Hi Ibad</Text>
-                   </View>
-                   <View style={{width:"50%",alignItems:"flex-end"}}>
-                        <Image
-                           source={{
-                            uri: 'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
-                          }}
-                            style={{height:60,width:60,borderRadius:60}}
-                        />
-                   </View>
-               </View>
-           </View> */}
-
-
-         
-         
-
-
-
-      <ScrollView>
-     
-      <View style={{
-               backgroundColor:"#4CCDFB",
-               height:150,
-               borderBottomLeftRadius:20,
-               borderBottomRightRadius:20,
-               paddingHorizontal:20
-           }}>
-
-
-
-<Feather
-              name="menu"
-              size={32}
-              color={colors.white}
-              style={{
-            
-            
-                marginTop:30
-            }}
-            />
-               <View style={{
-                   flexDirection:"row",
-                   alignItems:"center",
-                  
-                   width:"100%"
-               }}>
-                   <View style={{width:"50%"}}>
-                        <Text style={{
-                            fontSize:28,
-                            color:"#FFF",
-                            fontWeight:"bold"
-                        }}>Hi Ibad</Text>
-                   </View>
-                   <View style={{width:"50%",alignItems:"flex-end"}}>
-                        <Image
-                           source={{
-                            uri: 'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
-                          }}
-                            style={{height:60,width:60,borderRadius:60}}
-                        />
-                   </View>
-               </View>
-
-
-               </View>
-
-
-
-        <SafeAreaView>
-        <View style={{
-                   backgroundColor:"#FFF",
-                   paddingVertical:8,
-                   paddingHorizontal:20,
-                   marginHorizontal:20,
-                   borderRadius:15,
-                   marginTop:10,
-                 
-               }}>
-                   <TextInput
-                        placeholder="Search"
-                        placeholderTextColor="#b1e5d3"
-                        style={{
-                            fontWeight:"bold",
-                            fontSize:18,
-                            width:260
-                        }}
-                   />
-                   {/* <Image
-                    // source={require('../images/3.png')}
-                    style={{height:20,width:20}}
-                   /> */}
-               </View>
-          
-          
-          {/* <View style={styles.menuWrapper}>
-            <Feather
-              name="menu"
-              size={32}
-              color={colors.black}
-              style={styles.menuIcon}
-            />
-            <Image source={profile} style={styles.profileImage} />
-          </View>
-          
-          */}
-        </SafeAreaView>
-
-        {/* Discover */}
-        <View style={styles.discoverWrapper}>
-          <Text style={styles.discoverTitle}>Discover</Text>
-          <View style={styles.discoverCategoriesWrapper}>
-            <Text style={[styles.discoverCategoryText, {color: colors.orange}]}>
-              All
-            </Text>
-            <Text style={styles.discoverCategoryText}>Destinations</Text>
-            <Text style={styles.discoverCategoryText}>Cities</Text>
-            <Text style={styles.discoverCategoryText}>Experiences</Text>
-          </View>
-          <View style={styles.discoverItemsWrapper}>
-            <FlatList
-              data={discoverData}
-              renderItem={renderDiscoverItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-
-        {/* Activities */}
-        <View style={styles.activitiesWrapper}>
-          <Text style={styles.activitiesTitle}>Category</Text>
-          <View style={styles.activitiesItemsWrapper}>
-            <FlatList
-              data={activitiesData}
-              renderItem={renderActivityItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-
-        {/* Learn More */}
-        <View style={styles.learnMoreWrapper}>
-          <Text style={styles.learnMoreTitle}>Near by</Text>
-          <View style={styles.learnMoreItemsWrapper}>
-            <FlatList
-              data={learnMoreData}
-              renderItem={renderLearnMoreItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </View>
-    )
-}
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      color: colors.white,
+  const initialMapState = {
+    markers,
+    categories: [
+      { 
+        name: 'Fastfood Center', 
+        icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
+      },
+      {
+        name: 'Restaurant',
+        icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
+      },
+      {
+        name: 'Dineouts',
+        icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
+      },
+      {
+        name: 'Snacks Corner',
+        icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
+      },
+      {
+        name: 'Hotel',
+        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
+      },
+  ],
+    region: {
+      latitude: 22.62938671242907,
+      longitude: 88.4354486029795,
+      latitudeDelta: 0.04864195044303443,
+      longitudeDelta: 0.040142817690068,
     },
-    menuWrapper: {
-      marginHorizontal: 20,
-      marginTop: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    profileImage: {
-      width: 52,
-      height: 52,
-      borderRadius: 10,
-    },
-    discoverWrapper: {
-      // marginHorizontal: 20,
-     marginTop:10
-    },
-    discoverTitle: {
-      marginHorizontal: 20,
-      color:'black',
-      fontFamily: 'Lato-Bold',
-      fontSize: 32,
-    },
-    discoverCategoriesWrapper: {
-      marginHorizontal: 20,
-      flexDirection: 'row',
-      marginTop: 20,
-    },
-    discoverCategoryText: {
-      marginRight: 30,
-      fontFamily: 'Lato-Regular',
-      fontSize: 16,
-      color: colors.gray,
-    },
-    discoverItemsWrapper: {
-      paddingVertical: 20,
-    },
-    discoverItem: {
-      width: 170,
-      height: 250,
-      justifyContent: 'flex-end',
-      paddingHorizontal: 10,
-      paddingVertical: 15,
-      marginRight: 20,
-    },
-    discoverItemImage: {
-      borderRadius: 20,
-    },
-    discoverItemTitle: {
-      fontFamily: 'Lato-Bold',
-      fontSize: 18,
-      color: colors.white,
-    },
-    discoverItemLocationWrapper: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: 5,
-    },
-    discoverItemLocationText: {
-      marginLeft: 5,
-      fontFamily: 'Lato-Bold',
-      fontSize: 14,
-      color: colors.white,
-    },
-    activitiesWrapper: {
-      marginTop: 10,
-    },
-    activitiesTitle: {
-      marginHorizontal: 20,
-      fontFamily: 'Lato-Bold',
-      fontSize: 24,
-      color: colors.black,
-    },
-    activitiesItemsWrapper: {
-      paddingVertical: 20,
-    },
-    activityItemWrapper: {
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      marginRight: 20,
-    },
-    activityItemImage: {
-      width: 36,
-    },
-    activityItemText: {
-      marginTop: 5,
-      fontFamily: 'Lato-Bold',
-      fontSize: 14,
-      color: colors.gray,
-    },
-    learnMoreWrapper: {
-      marginTop: 10,
-    },
-    learnMoreTitle: {
-      marginHorizontal: 20,
-      fontFamily: 'Lato-Bold',
-      fontSize: 24,
-      color: colors.black,
-    },
-    learnMoreItemsWrapper: {
-      paddingVertical: 20,
-    },
-    learnMoreItem: {
-      width: 170,
-      height: 180,
-      justifyContent: 'flex-end',
-      marginRight: 20,
-    },
-    learnMoreItemImage: {
-      borderRadius: 20,
-    },
-    learnMoreItemText: {
-      fontFamily: 'Lato-Bold',
-      fontSize: 18,
-      color: colors.white,
-      marginHorizontal: 10,
-      marginVertical: 20,
-    },
+  };
+
+  const [state, setState] = React.useState(initialMapState);
+
+  let mapIndex = 0;
+  let mapAnimation = new Animated.Value(0);
+
+  useEffect(() => {
+    mapAnimation.addListener(({ value }) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+      if (index >= state.markers.length) {
+        index = state.markers.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(regionTimeout);
+
+      const regionTimeout = setTimeout(() => {
+        if( mapIndex !== index ) {
+          mapIndex = index;
+          const { coordinate } = state.markers[index];
+          _map.current.animateToRegion(
+            {
+              ...coordinate,
+              latitudeDelta: state.region.latitudeDelta,
+              longitudeDelta: state.region.longitudeDelta,
+            },
+            350
+          );
+        }
+      }, 10);
+    });
   });
+
+  const interpolations = state.markers.map((marker, index) => {
+    const inputRange = [
+      (index - 1) * CARD_WIDTH,
+      index * CARD_WIDTH,
+      ((index + 1) * CARD_WIDTH),
+    ];
+
+    const scale = mapAnimation.interpolate({
+      inputRange,
+      outputRange: [1, 1.5, 1],
+      extrapolate: "clamp"
+    });
+
+    return { scale };
+  });
+
+  const onMarkerPress = (mapEventData) => {
+    const markerID = mapEventData._targetInst.return.key;
+
+    let x = (markerID * CARD_WIDTH) + (markerID * 20); 
+    if (Platform.OS === 'ios') {
+      x = x - SPACING_FOR_CARD_INSET;
+    }
+
+    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
+  }
+
+  const _map = React.useRef(null);
+  const _scrollView = React.useRef(null);
+
+
+  return (
+    <View style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#4CCDFB" />
+      <MapView
+        ref={_map}
+        initialRegion={state.region}
+        style={styles.container}
+        provider={PROVIDER_GOOGLE}
+        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
+      >
+        {state.markers.map((marker, index) => {
+          const scaleStyle = {
+            transform: [
+              {
+                scale: interpolations[index].scale,
+              },
+            ],
+          };
+          return (
+            <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e)=>onMarkerPress(e)}>
+              <Animated.View style={[styles.markerWrap]}>
+                <Animated.Image
+                  source={require('../assets/images/map_marker.png')}
+                  style={[styles.marker, scaleStyle]}
+                  resizeMode="cover"
+                />
+              </Animated.View>
+            </MapView.Marker>
+          );
+        })}
+      </MapView>
+      <View style={styles.searchBox}>
+        <TextInput 
+          placeholder="Search here"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          style={{flex:1,padding:0}}
+        />
+        <Ionicons name="ios-search" size={20} />
+      </View>
+      <ScrollView
+        horizontal
+        scrollEventThrottle={1}
+        showsHorizontalScrollIndicator={false}
+        height={50}
+        style={styles.chipsScrollView}
+        contentInset={{ // iOS only
+          top:0,
+          left:0,
+          bottom:0,
+          right:20
+        }}
+        contentContainerStyle={{
+          paddingRight: Platform.OS === 'android' ? 20 : 0
+        }}
+      >
+        {state.categories.map((category, index) => (
+          <TouchableOpacity key={index} style={styles.chipsItem}>
+            {category.icon}
+            <Text>{category.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+
+
+
+      
+      <Animated.ScrollView
+        ref={_scrollView}
+        horizontal
+        pagingEnabled
+        scrollEventThrottle={1}
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={CARD_WIDTH + 20}
+        snapToAlignment="center"
+        style={styles.scrollView}
+        contentInset={{
+          top: 0,
+          left: SPACING_FOR_CARD_INSET,
+          bottom: 0,
+          right: SPACING_FOR_CARD_INSET
+        }}
+        contentContainerStyle={{
+          paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
+        }}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: mapAnimation,
+                }
+              },
+            },
+          ],
+          {useNativeDriver: true}
+        )}
+      >
+        {state.markers.map((marker, index) =>(
+
+
+
+<View
+key={index}
+style={{
+  backgroundColor: "#FEFEFE",
+  height: 200,
+  width: CARD_WIDTH,
+  borderRadius: 15,
+  marginRight:20,
+  padding: 5,
+}}
+>
+<Image
+  source={marker.image}
+  style={{ width: 170, borderRadius: 10, height: 130 }}
+/>
+<View
+  style={{
+    flexDirection: "row",
+    width: 150,
+    alignItems: "center",
+  }}
+>
+  <View
+    style={{
+      paddingHorizontal: 5,
+      paddingVertical: 5,
+    }}
+  >
+    <Text
+      style={{
+    
+        fontSize: 16,
+        color: "black",
+      }}
+    >
+      {marker.title}
+    </Text>
+  </View>
+  <Ionicons name="map-marker" size={25} color="#ff5c83" />
+</View>
+<Rating size={2} imageSize={16} startingValue={4.3}/>           
+ </View>
+
+
+
+
+
+
+         
+        ))}
+      </Animated.ScrollView>
+    </View>
+  )
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  searchBox: {
+    position:'absolute', 
+    marginTop: Platform.OS === 'ios' ? 40 : 20, 
+    flexDirection:"row",
+    backgroundColor: '#fff',
+    width: '90%',
+    alignSelf:'center',
+    borderRadius: 5,
+    padding: 10,
+    shadowColor: '#ccc',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  chipsScrollView: {
+    position:'absolute', 
+    top:Platform.OS === 'ios' ? 90 : 80, 
+    paddingHorizontal:10
+  },
+  chipsIcon: {
+    marginRight: 5,
+  },
+  chipsItem: {
+    flexDirection:"row",
+    backgroundColor:'#fff', 
+    borderRadius:20,
+    padding:8,
+    paddingHorizontal:20, 
+    marginHorizontal:10,
+    height:35,
+    shadowColor: '#ccc',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  scrollView: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 10,
+  },
+  endPadding: {
+    paddingRight: width - CARD_WIDTH,
+  },
+  card: {
+    // padding: 10,
+    elevation: 2,
+    backgroundColor: "#FFF",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
+    shadowOffset: { x: 2, y: -2 },
+    height: CARD_HEIGHT,
+    width: CARD_WIDTH,
+    overflow: "hidden",
+  },
+  cardImage: {
+    flex: 3,
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
+  },
+  textContent: {
+    flex: 2,
+    padding: 10,
+  },
+  cardtitle: {
+    fontSize: 12,
+    // marginTop: 5,
+    fontWeight: "bold",
+  },
+  cardDescription: {
+    fontSize: 12,
+    color: "#444",
+  },
+  markerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    width:50,
+    height:50,
+  },
+  marker: {
+    width: 30,
+    height: 30,
+  },
+  button: {
+    alignItems: 'center',
+    marginTop: 5
+  },
+  signIn: {
+      width: '100%',
+      padding:5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 3
+  },
+  textSign: {
+      fontSize: 14,
+      fontWeight: 'bold'
+  }
+});

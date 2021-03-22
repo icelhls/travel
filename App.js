@@ -18,9 +18,9 @@ export default class App extends React.Component{
   }
   render(){
     return(
-      (this.state.isFontLoaded === true) ? ( <NavigationContainer>
+      (this.state.isFontLoaded === true) ? (
         <AppNavigator/>
-      </NavigationContainer>):(<AppLoading/>)
+      ):(<AppLoading/>)
     );
   }
 }

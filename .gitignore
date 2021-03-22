@@ -14,3 +14,5 @@ web-build/
 backend/all places list.csv
 # macOS
 .DS_Store
+
+backend/node_modules/
