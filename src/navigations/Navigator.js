@@ -75,10 +75,10 @@ const AppNavigator = () => {
           headerShown: false
         }}
         >
-             <Stack.Screen  name="Test" component={Test} />
+             {/* <Stack.Screen  name="Test" component={Test} /> */}
             
            {/* <Stack.Screen  name="Signin" component={Signin} /> */}
-                   {/* <Stack.Screen  name="Home" component={BottomTabNavigator} /> */}
+                    <Stack.Screen  name="Home" component={BottomTabNavigator} /> 
              
                    
         </Stack.Navigator>

@@ -24,6 +24,7 @@ export  function Maps() {
   const [lat, setlat] = useState(0);
   const [long, setlong] = useState(0);
 
+  const [alllocations, setalllocations] = useState([]);
 
   const origin = {latitude: lat, longitude: long};
 const destination = {latitude: 33.6844, longitude: 73.0479};
@@ -43,7 +44,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
 alert('hello')
       let location = await Location.getCurrentPositionAsync({});
       // var myModule = require('../../config');
-    const response= await fetch('http://192.168.1.107:5000'+"/api/getLocations", {
+    const response= await fetch('http://192.168.0.101:5000'+"/api/getLocations", {
       method: "post",
       headers: {
         "content-type": "application/x-www-form-urlencoded; charset=utf-8",
@@ -51,11 +52,16 @@ alert('hello')
       body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
     });
     const json=await response.json();  
+
+   
+    setalllocations(json)
     console.warn(json)
       setLocation(location); 
-      setlat(location.coords.latitude)
+      setlat(json[0].latitude)
+      setlong(json[0].longitude)
+     /// setlat(location.coords.latitude)
 
-       setlong(location.coords.longitude)
+       //setlong(location.coords.longitude)
       
     })();
     
@@ -108,7 +114,7 @@ alert('hello')
                   <Text style={styles.name}>New Restaurant</Text>
 
                   <Text>{long}</Text>
-
+                  <Text>{lat}</Text>
                   {/* <Text>A short description</Text> */}
                   <Image 
                     style={styles.image}
