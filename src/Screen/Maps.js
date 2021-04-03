@@ -44,7 +44,7 @@ const GOOGLE_MAPS_APIKEY = '';
 
       let location = await Location.getCurrentPositionAsync({});
       // var myModule = require('../../config');
-    const response= await fetch('http://192.168.0.101:5000'+"/api/getLocations", {
+    const response= await fetch('http://192.168.1.105:5000'+"/api/getLocations", {
       method: "post",
       headers: {
         "content-type": "application/x-www-form-urlencoded; charset=utf-8",

@@ -16,3 +16,7 @@ backend/all places list.csv
 .DS_Store
 
 backend/node_modules/
+*.csv
+*.json
+package.json
+package-lock.json

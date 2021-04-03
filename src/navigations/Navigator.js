@@ -9,6 +9,7 @@ import Ionicons  from '@expo/vector-icons/Ionicons';
 import Icon2 from '@expo/vector-icons/Entypo';
 import { Home } from '../Screen/Home';
 import Signin from '../Screen/Signin';
+import Signup from '../Screen/Signup';
 import Test from '../Screen/Test';
 import Details from '../Screen/Details';
 
@@ -59,9 +60,12 @@ const AppNavigator = () => {
           headerShown: false
         }}
         >
+            <Stack.Screen  name="Signup" component={Signin} />
+             <Stack.Screen  name="Test" component={Test} />             
               {/* <Stack.Screen  name="Test" component={Test} />              */}
-           <Stack.Screen  name="Signin" component={Signin} />
+        
                     <Stack.Screen  name="Home" component={BottomTabNavigator} />
+                    {/* <Stack.Screen  name="Signin" component={Signin} /> */}
                    <Stack.Screen  name="Details" component={Details} />   
                     
         </Stack.Navigator>

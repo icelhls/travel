@@ -1,137 +1,60 @@
-
-const express = require("express");
-const app = require('express')();
-
-const spawn = require('child_process').spawn;
-
-
-
-
-
-
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-
-const path = require("path");
-const cors = require("cors");
-const axios = require("axios");
-
-
-
-
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
-const config = require("./config/config");
-var url = config.mongoURI;
-
-
-
-// var notify = require("./route/notification/notify");
-
-
-
-////var verifyemail = require("./route/emailservicce/verifyemail");
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin,X-Requested-With,Content-Type,Accept,Authorization"
-  );
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT,POST,DELETE,PATCH,GET");
-    return res.status(200).json({});
-  }
-  next();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const router = express.Router();
-
-router.post("/getLocations", (req, res) => {
-  console.log("hahahahhah")
-  // var lat=74.2227181;
-  // var long=31.4137617;
-
-  var lat=parseFloat(req.body.lat);
-  var long=parseFloat(req.body.long);
-  console.log(lat)
-  console.log(long)
-  
-
-      const process = spawn('python', ['Locations.py',lat,long]);
-   
-      // collect data from script
-      process.stdout.on('data',data=>{
-        console.log('after process')
-
-
-      try{
-        
-        myarray=JSON.parse(data)
-        res.json(myarray)
-      
-     /////   var test=data;
-      
-        console.log(myarray)
-      }
-      catch{
-
-        
-      }
-       
-      
-         ////res.json(JSON.parse(data.toString()))
-         
-         
-         
-         ;})
-        
-  
-  })
-
-
-app.use(cors());
+const  express = require("express");
+const  http = require("http");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const  cors = require("cors");
+const app = require('express')()
+const  server = http.createServer(app);
+const io = require('socket.io')(server, {
+    cors: {
+      origin: '*',
+    }
+  });
+  const path = require('path');
 
-//to not get any deprecation warning or error
-//support parsing of application/x-www-form-urlencoded post data
+
+const getlocation=require('./route/recomendationmodel/getlocation');
+////const signupgoogle = require("./route/Registration/signupgoogle");
+
+const sociallogin = require("./route/Registration/sociallogin");
+
+const emaillogin = require("./route/Registration/enaillogin");
+app.use(express.json());
+const router = express.Router();
+app.use(cors());
+const { ExpressPeerServer } = require("peer");
+const customGenerationFunction = () =>
+  (Math.random().toString(36) + "0000000000000000000").substr(2, 16);
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
+  path: "/",
+  generateClientId: customGenerationFunction,
+});
 app.use(bodyParser.urlencoded({ extended: true }));
-//to get json data
-// support parsing of application/json type post data
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cors());
+app.use("/peer", peerServer)
+getlocation(app)
 
-const port = process.env.PORT || 5000;
-app.use("/api", router);
-server.listen(port, () => {
-  console.log(`Server Listening on ${port}`);
+sociallogin(app)
+emaillogin(app)
+
+// app.post("/loginnow", (req, res1) => {
+// console.log(req.body)
+// res1.json("dsfsdf")
+// })
+
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('*', (req, res) => {
+
+	// res.sendFile(path.join(__dirname+'/build/index.html'));
+res.json("sdad")
 });
 
 
 
+const port=process.env.PORT || 5000;
+server.listen(port,()=> console.log(`server is running ${port}`))
+io.on("connection", (socket) => {
 
 
 
-
-
-
-
-
-
+})  

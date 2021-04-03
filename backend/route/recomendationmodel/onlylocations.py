@@ -9,7 +9,7 @@ import re
 import math
 import sys
 import json
-df = pandas.read_csv("F:/react projects/travel/backend/all places list.csv",error_bad_lines=False, engine="python")
+df = pandas.read_csv("F:/react projects/travel/backend/route/recomendationmodel/all places list.csv",error_bad_lines=False, engine="python")
 
 
 # In[2]:
@@ -31,8 +31,8 @@ df2=df[["no","placeUrl","title","rating","category","latitude","longitude","pic1
 
 df3 = df2.dropna(subset=['latitude'])
 
-inputLong=74.2227181
-inputLat=31.4137617
+inputLong=float(sys.argv[1])
+inputLat=float(sys.argv[2])
 
 #print(type(sys.argv[1]))
 
@@ -43,6 +43,7 @@ def distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2):
   earthRadiusKm = 6371;
   dLat = degreesToRadians(lat2-lat1);
   dLon = degreesToRadians(lon2-lon1);
+
 
   lat1 = degreesToRadians(lat1);
   lat2 = degreesToRadians(lat2);
@@ -72,6 +73,7 @@ for x in newlist[:10]:
     
 jsonStr = json.dumps(jsonConveredList)
 print(jsonStr)
+sys.stdout.flush()
 
 
 # In[ ]:

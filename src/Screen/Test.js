@@ -1,5 +1,5 @@
   
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,9 +17,10 @@ import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
 import Fontisto from '@expo/vector-icons/Fontisto';
 import { Rating, AirbnbRating } from 'react-native-ratings';
-import { markers, mapDarkStyle, mapStandardStyle } from '../Component/mapData';
+import {  mapDarkStyle, mapStandardStyle } from '../Component/mapData';
 
 
 import { useTheme } from '@react-navigation/native';
@@ -30,6 +31,84 @@ const CARD_WIDTH = width * 0.5;
 const SPACING_FOR_CARD_INSET = width * 0.1 -20;
 
 export default function Test() {
+
+  const [alllocations, setalllocations] = useState([]);
+  const [markers, setmarkers] = useState([]);
+
+  const Images = [
+    { image: require("../assets/images/beach.png") },
+    { image: require("../assets/images/boatbeach.png") },
+    { image: require("../assets/images/australia.png") },
+    { image: require("../assets/images/kayak.png") },
+];
+
+async function recomendedpoints(){
+   var lat=74.2227181;
+  var long=31.4137617;
+
+const response= await fetch('http://192.168.0.100:5000'+"/getLocations", {
+  method: "post",
+  headers: {
+    "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+  },
+   body: `lat=${lat}&long=${long}`,
+});
+const json=await response.json();  
+
+
+setalllocations(json)
+
+ /// setlat(location.coords.latitude)
+
+   //setlong(location.coords.longitude)
+  
+
+}
+
+
+  useEffect(() => {
+
+    recomendedpoints();
+
+  
+     
+
+      // var myModule = require('../../config');
+
+    
+
+
+
+
+  }, []);
+
+ 
+
+  for(var i=0;i<alllocations.length;i++)
+{
+  markers.push({
+    coordinate: {
+      latitude: alllocations[i].latitude,
+      longitude: alllocations[i].longitude,
+    },
+    title: "Amazing Food Place",
+    description: "This is the best food place",
+    image: Images[0].image,
+    rating: 4,
+    reviews: 99,
+  },)
+}
+
+
+
+
+
+
+
+
+
+
+
 
   const theme = useTheme();
 
@@ -58,8 +137,8 @@ export default function Test() {
       },
   ],
     region: {
-      latitude: 22.62938671242907,
-      longitude: 88.4354486029795,
+      latitude: 74.2227181,
+      longitude: 31.4137617,
       latitudeDelta: 0.04864195044303443,
       longitudeDelta: 0.040142817690068,
     },
