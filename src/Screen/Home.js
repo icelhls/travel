@@ -1,40 +1,36 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from "react";
 
 import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    ScrollView,
-    TextInput,
-    ImageBackground,
-    KeyboardAvoidingView,
-    Dimensions,
-    StatusBar
-  } from 'react-native';
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TextInput,
+  ImageBackground,
+  KeyboardAvoidingView,
+  Dimensions,
+  StatusBar,
+} from "react-native";
 
-  import colors from '../assets/colors/colors';
-  import Feather from 'react-native-vector-icons/Feather';
-  import Entypo from '@expo/vector-icons/Entypo';
-  import activitiesData from '../assets/data/activitiesData';
-  import discoverCategoriesData from '../assets/data/discoverCategoriesData';
-  import learnMoreData from '../assets/data/learnMoreData';
-  import discoverData from '../assets/data/discoverData';
-  import {SafeAreaView} from 'react-native-safe-area-context';
-  import profile from '../assets/images/person.png';
-  import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-  import { LinearGradient } from 'expo-linear-gradient';
+import colors from "../assets/colors/colors";
+import Feather from "react-native-vector-icons/Feather";
+import Entypo from "@expo/vector-icons/Entypo";
+import activitiesData from "../assets/data/activitiesData";
+import discoverCategoriesData from "../assets/data/discoverCategoriesData";
+import learnMoreData from "../assets/data/learnMoreData";
+import discoverData from "../assets/data/discoverData";
+import { SafeAreaView } from "react-native-safe-area-context";
+import profile from "../assets/images/person.png";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
 
-  import Icon from '@expo/vector-icons/MaterialIcons';
+import Icon from "@expo/vector-icons/MaterialIcons";
 
-
-  Feather.loadFont();
+Feather.loadFont();
 Entypo.loadFont();
 
-
-
-export  function Home({navigation}) {
-
+export function Home({ navigation }) {
   const categoryIcons = [
     <Icon name="flight" size={25} color={colors.primary} />,
     <Icon name="beach-access" size={25} color={colors.primary} />,
@@ -47,27 +43,23 @@ export  function Home({navigation}) {
         {categoryIcons.map((icon, index) => (
           <View key={index} style={styles.iconContainer}>
             {icon}
-  
           </View>
         ))}
       </View>
     );
   };
 
-  
-  const renderDiscoverItem = ({item}) => {
+  const renderDiscoverItem = ({ item }) => {
     return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('Details')
-        }>
+      <TouchableOpacity onPress={() => navigation.navigate("Details")}>
         <ImageBackground
           source={item.image}
           style={[
             styles.discoverItem,
-            {marginLeft: item.id === 'discover-1' ? 20 : 0},
+            { marginLeft: item.id === "discover-1" ? 20 : 0 },
           ]}
-          imageStyle={styles.discoverItemImage}>
+          imageStyle={styles.discoverItemImage}
+        >
           <Text style={styles.discoverItemTitle}>{item.title}</Text>
           <View style={styles.discoverItemLocationWrapper}>
             <Entypo name="location-pin" size={18} color={colors.white} />
@@ -78,115 +70,106 @@ export  function Home({navigation}) {
     );
   };
 
-  const renderActivityItem = ({item}) => {
+  const renderActivityItem = ({ item }) => {
     return (
       <View
         style={[
           styles.activityItemWrapper,
           {
-            marginLeft: item.id === 'activities-1' ? 20 : 0,
+            marginLeft: item.id === "activities-1" ? 20 : 0,
           },
-        ]}>
+        ]}
+      >
         <Image source={item.image} style={styles.activityItemImage} />
         <Text style={styles.activityItemText}>{item.title}</Text>
       </View>
     );
   };
 
-  const renderLearnMoreItem = ({item}) => {
+  const renderLearnMoreItem = ({ item }) => {
     return (
       <ImageBackground
         source={item.image}
         style={[
           styles.learnMoreItem,
           {
-            marginLeft: item.id === 'learnMore-1' ? 20 : 0,
+            marginLeft: item.id === "learnMore-1" ? 20 : 0,
           },
         ]}
-        imageStyle={styles.learnMoreItemImage}>
+        imageStyle={styles.learnMoreItemImage}
+      >
         <Text style={styles.learnMoreItemText}>{item.title}</Text>
       </ImageBackground>
     );
   };
 
- 
-    return (
-        <>
-        <View style={styles.container}>
-  <StatusBar barStyle="dark-content" backgroundColor="#4CCDFB" />
-      <ScrollView>
-     
-       <View style={{
-               backgroundColor:"#4CCDFB",
-               height:150,
-               borderBottomLeftRadius:20,
-               borderBottomRightRadius:20,
-               paddingHorizontal:20
-           }}>
-
-
-
-<Feather
+  return (
+    <>
+      <View style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor="#4CCDFB" />
+        <ScrollView>
+          <View
+            style={{
+              backgroundColor: "#4CCDFB",
+              height: 150,
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
+              paddingHorizontal: 20,
+            }}
+          >
+            <Feather
               name="menu"
               size={32}
               color={colors.white}
               style={{
-            
-            
-                marginTop:30
-            }}
+                marginTop: 30,
+              }}
             />
-               <View style={{
-                   flexDirection:"row",
-                   alignItems:"center",
-                  
-                   width:"100%"
-               }}>
-                   <View style={{width:"50%"}}>
-                        <Text style={{
-                            fontSize:28,
-                            color:"#FFF",
-                            fontWeight:"bold"
-                        }}>Hi Ibad</Text>
-                   </View>
-                   <View style={{width:"50%",alignItems:"flex-end"}}>
-                        <Image
-                           source={{
-                            uri: 'https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
-                          }}
-                            style={{height:60,width:60,borderRadius:60}}
-                        />
-                   </View>
-               </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
 
+                width: "100%",
+              }}
+            >
+              <View style={{ width: "50%" }}>
+                <Text
+                  style={{
+                    fontSize: 28,
+                    color: "#FFF",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Hi Ibad
+                </Text>
+              </View>
+              <View style={{ width: "50%", alignItems: "flex-end" }}>
+                <Image
+                  source={{
+                    uri:
+                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                  }}
+                  style={{ height: 60, width: 60, borderRadius: 60 }}
+                />
+              </View>
+            </View>
+          </View>
 
-               </View> 
-
-
-
-        <SafeAreaView>
-
-
-        
-           
+          <SafeAreaView>
             <View style={styles.inputContainer}>
               <Icon name="search" size={28} />
               <TextInput
                 placeholder="Search place"
                 style={{
-                  fontWeight:"bold",
-                  fontSize:18,
-                  width:260
-              }}
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  width: 260,
+                }}
               />
             </View>
-         
-     
 
-
-
-
-        {/* <View style={{
+            {/* <View style={{
                    backgroundColor:"#FFF",
                    paddingVertical:8,
                    paddingHorizontal:20,
@@ -222,12 +205,12 @@ export  function Home({navigation}) {
           </View>
           
           */}
-        </SafeAreaView>
+          </SafeAreaView>
 
-        {/* Discover */}
-        <View style={styles.discoverWrapper}>
-          <Text style={styles.discoverTitle}>Discover</Text>
-          {/* <View style={styles.discoverCategoriesWrapper}>
+          {/* Discover */}
+          <View style={styles.discoverWrapper}>
+            <Text style={styles.discoverTitle}>Discover</Text>
+            {/* <View style={styles.discoverCategoriesWrapper}>
             <Text style={[styles.discoverCategoryText, {color: colors.orange}]}>
               All
             </Text>
@@ -235,24 +218,24 @@ export  function Home({navigation}) {
             <Text style={styles.discoverCategoryText}>Cities</Text>
             <Text style={styles.discoverCategoryText}>Experiences</Text>
           </View> */}
-          <View style={styles.discoverItemsWrapper}>
-            <FlatList
-              data={discoverData}
-              renderItem={renderDiscoverItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
+            <View style={styles.discoverItemsWrapper}>
+              <FlatList
+                data={discoverData}
+                renderItem={renderDiscoverItem}
+                keyExtractor={item => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
           </View>
-        </View>
 
-        {/* Activities */}
-        <View style={styles.activitiesWrapper}>
-          <Text style={styles.activitiesTitle}>Category</Text>
+          {/* Activities */}
+          <View style={styles.activitiesWrapper}>
+            <Text style={styles.activitiesTitle}>Category</Text>
 
-          <ListCategories />
+            <ListCategories />
 
-          {/* <View style={styles.activitiesItemsWrapper}>
+            {/* <View style={styles.activitiesItemsWrapper}>
             <FlatList
               data={activitiesData}
               renderItem={renderActivityItem}
@@ -261,29 +244,26 @@ export  function Home({navigation}) {
               showsHorizontalScrollIndicator={false}
             />
           </View> */}
-        </View>
-
-        {/* Learn More */}
-        <View style={styles.learnMoreWrapper}>
-          <Text style={styles.learnMoreTitle}>Near by</Text>
-          <View style={styles.learnMoreItemsWrapper}>
-            <FlatList
-              data={learnMoreData}
-              renderItem={renderLearnMoreItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
           </View>
-        </View>
-      </ScrollView>
-    </View>
-     
 
-      </>
-    )
+          {/* Learn More */}
+          <View style={styles.learnMoreWrapper}>
+            <Text style={styles.learnMoreTitle}>Near by</Text>
+            <View style={styles.learnMoreItemsWrapper}>
+              <FlatList
+                data={learnMoreData}
+                renderItem={renderLearnMoreItem}
+                keyExtractor={item => item.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </View>
+    </>
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -293,9 +273,9 @@ const styles = StyleSheet.create({
   menuWrapper: {
     marginHorizontal: 20,
     marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   profileImage: {
     width: 52,
@@ -303,18 +283,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   discoverWrapper: {
-     marginVertical: 10,
-   marginTop:10,
+    marginVertical: 10,
+    marginTop: 10,
   },
   discoverTitle: {
     marginHorizontal: 20,
-    color:'black',
- 
+    color: "black",
+
     fontSize: 32,
   },
   discoverCategoriesWrapper: {
     marginHorizontal: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 20,
   },
   discoverCategoryText: {
@@ -329,7 +309,7 @@ const styles = StyleSheet.create({
   discoverItem: {
     width: 170,
     height: 250,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     paddingHorizontal: 10,
     paddingVertical: 15,
     marginRight: 20,
@@ -338,18 +318,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   discoverItemTitle: {
-
     fontSize: 18,
     color: colors.white,
   },
   discoverItemLocationWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 5,
   },
   discoverItemLocationText: {
     marginLeft: 5,
- 
+
     fontSize: 14,
     color: colors.white,
   },
@@ -358,7 +337,7 @@ const styles = StyleSheet.create({
   },
   activitiesTitle: {
     marginHorizontal: 20,
-   
+
     fontSize: 24,
     color: colors.black,
   },
@@ -366,8 +345,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   activityItemWrapper: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: "flex-end",
+    alignItems: "center",
     marginRight: 20,
   },
   activityItemImage: {
@@ -384,7 +363,7 @@ const styles = StyleSheet.create({
   },
   learnMoreTitle: {
     marginHorizontal: 20,
-   
+
     fontSize: 24,
     color: colors.black,
   },
@@ -394,14 +373,13 @@ const styles = StyleSheet.create({
   learnMoreItem: {
     width: 170,
     height: 180,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     marginRight: 20,
   },
   learnMoreItemImage: {
     borderRadius: 20,
   },
   learnMoreItemText: {
-
     fontSize: 18,
     color: colors.white,
     marginHorizontal: 10,
@@ -410,47 +388,42 @@ const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: colors.primary,
   },
   headerTitle: {
     color: colors.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 23,
   },
   inputContainer: {
-    
-   
     paddingHorizontal: 20,
-    
+
     height: 60,
-    width: '90%',
+    width: "90%",
     backgroundColor: colors.white,
     borderRadius: 10,
     // position: 'absolute',
-    marginLeft:20,
+    marginLeft: 20,
     top: -20,
-    flexDirection: 'row',
-    
-    alignItems: 'center',
+    flexDirection: "row",
+
+    alignItems: "center",
     elevation: 12,
   },
   categoryContainer: {
     marginTop: 20,
     marginHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   iconContainer: {
     height: 60,
     width: 60,
     backgroundColor: colors.secondary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
   },
-
-
-
 });
