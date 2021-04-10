@@ -12,6 +12,7 @@ import Signin from "../Screen/Signin";
 import Signup from "../Screen/Signup";
 import Test from "../Screen/Test";
 import Details from "../Screen/Details";
+import Searchpage from "../Screen/Searchpage";
 
 const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {

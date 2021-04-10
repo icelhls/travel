@@ -1,18 +1,17 @@
-const  express = require("express");
-const  http = require("http");
+const express = require("express");
+const http = require("http");
 const bodyParser = require("body-parser");
-const  cors = require("cors");
-const app = require('express')()
-const  server = http.createServer(app);
-const io = require('socket.io')(server, {
-    cors: {
-      origin: '*',
-    }
-  });
-  const path = require('path');
+const cors = require("cors");
+const app = require("express")();
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
+const path = require("path");
 
-
-const getlocation=require('./route/recomendationmodel/getlocation');
+const getlocation = require("./route/recomendationmodel/getlocation");
 ////const signupgoogle = require("./route/Registration/signupgoogle");
 
 const sociallogin = require("./route/Registration/sociallogin");
@@ -31,30 +30,23 @@ const peerServer = ExpressPeerServer(server, {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/peer", peerServer)
-getlocation(app)
+app.use("/peer", peerServer);
+getlocation(app);
 
-sociallogin(app)
-emaillogin(app)
+sociallogin(app);
+emaillogin(app);
 
 // app.post("/loginnow", (req, res1) => {
 // console.log(req.body)
 // res1.json("dsfsdf")
 // })
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.use('*', (req, res) => {
-
-	// res.sendFile(path.join(__dirname+'/build/index.html'));
-res.json("sdad")
+app.use(express.static(path.join(__dirname, "build")));
+app.use("*", (req, res) => {
+  // res.sendFile(path.join(__dirname+'/build/index.html'));
+  res.json("sdad");
 });
 
-
-
-const port=process.env.PORT || 5000;
-server.listen(port,()=> console.log(`server is running ${port}`))
-io.on("connection", (socket) => {
-
-
-
-})  
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`server is running ${port}`));
+io.on("connection", socket => {});
