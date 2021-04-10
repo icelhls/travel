@@ -17,7 +17,7 @@ import Signin from "./Signin";
 import Detailsmore from "../Component/Pagedetails/Detailsmore";
 import Reviews from "../Component/Pagedetails/Reviews";
 import Placepics from "../Component/Pagedetails/Placepics";
-
+import { FontAwesome5 } from "@expo/vector-icons";
 var AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 const BANNER_H = 270;
 const TOPNAVI_H = 50;
@@ -67,7 +67,7 @@ export default function Details({ navigation, route }) {
                 asda
               </Text>
               <View style={{ flexDirection: "row" }}>
-                <Icon name="star" size={30} color={COLORS.orange} />
+                <Icon name="star" size={30} color={COLORS.yellow} />
                 <Text
                   style={{
                     color: COLORS.white,
@@ -83,7 +83,7 @@ export default function Details({ navigation, route }) {
         </View>
         <View style={style.detailsContainer}>
           <View style={style.iconContainer}>
-            <Icon name="favorite" color={COLORS.red} size={30} />
+            <FontAwesome5 name="route" color={COLORS.dark} size={30} />
           </View>
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Icon name="place" size={28} color={COLORS.primary} />
