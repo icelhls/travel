@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   View,
@@ -12,7 +12,7 @@ import {
   Dimensions,
   StatusBar,
 } from "react-native";
-
+import { AsyncStorage } from "react-native";
 import colors from "../assets/colors/colors";
 import Feather from "react-native-vector-icons/Feather";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -24,13 +24,77 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import profile from "../assets/images/person.png";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-
+import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
 Feather.loadFont();
 Entypo.loadFont();
 
 export function Home({ navigation }) {
+  const [fname, setfname] = useState("");
+
+  const [nearByLocation, setNearByLocation] = useState([]);
+
+  const [discoverLocation, setDiscoverLocation] = useState([]);
+
+  const serverpoint = require("../config");
+
+  async function getlocationbymodel() {
+    alert("ihsfisb");
+    axios
+      .post(serverpoint.servername + "/getLocations", {
+        lat: "3434.434",
+        long: "34343.3434",
+      })
+      .then(res => {
+        // alert(res.data)
+        console.log(res.data);
+        ////alert(res.data);
+        setNearByLocation(res.data);
+      });
+  }
+
+  async function getDiscoverLocation() {
+    //// alert("ihsfisb");
+    axios
+      .post(serverpoint.servername + "/getDiscoverLocation", {
+        lat: "3434.434",
+        long: "34343.3434",
+      })
+      .then(res => {
+        // alert(res.data)
+        console.log(res.data);
+        ////alert(res.data);
+        setDiscoverLocation(res.data);
+      });
+  }
+  const gettoken = async key => {
+    try {
+      const retrievedItem = await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+
+      if (item != null) {
+        return retrievedItem;
+      } else {
+        return "";
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+    return;
+  };
+
+  const fetchuserdata = async () => {
+    var obje = await gettoken("travelapp");
+    setfname(JSON.parse(obje).fname);
+  };
+
+  React.useEffect(() => {
+    fetchuserdata();
+    getlocationbymodel();
+    getDiscoverLocation();
+  }, []);
+
   const categoryIcons = [
     <Icon name="flight" size={25} color={colors.primary} />,
     <Icon name="beach-access" size={25} color={colors.primary} />,
@@ -53,7 +117,7 @@ export function Home({ navigation }) {
     return (
       <TouchableOpacity onPress={() => navigation.navigate("Details")}>
         <ImageBackground
-          source={item.image}
+          source={{ uri: item.pic1 }}
           style={[
             styles.discoverItem,
             { marginLeft: item.id === "discover-1" ? 20 : 0 },
@@ -63,7 +127,7 @@ export function Home({ navigation }) {
           <Text style={styles.discoverItemTitle}>{item.title}</Text>
           <View style={styles.discoverItemLocationWrapper}>
             <Entypo name="location-pin" size={18} color={colors.white} />
-            <Text style={styles.discoverItemLocationText}>{item.location}</Text>
+            <Text style={styles.discoverItemLocationText}>{item.title}</Text>
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -89,11 +153,11 @@ export function Home({ navigation }) {
   const renderLearnMoreItem = ({ item }) => {
     return (
       <ImageBackground
-        source={item.image}
+        source={{ uri: item.pic1 }}
         style={[
           styles.learnMoreItem,
           {
-            marginLeft: item.id === "learnMore-1" ? 20 : 0,
+            marginLeft: item._id === "learnMore-1" ? 20 : 0,
           },
         ]}
         imageStyle={styles.learnMoreItemImage}
@@ -141,7 +205,7 @@ export function Home({ navigation }) {
                     fontWeight: "bold",
                   }}
                 >
-                  Hi Ibad
+                  Hi {fname}
                 </Text>
               </View>
               <View style={{ width: "50%", alignItems: "flex-end" }}>
@@ -220,9 +284,9 @@ export function Home({ navigation }) {
           </View> */}
             <View style={styles.discoverItemsWrapper}>
               <FlatList
-                data={discoverData}
+                data={discoverLocation}
                 renderItem={renderDiscoverItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item._id}
                 horizontal
                 showsHorizontalScrollIndicator={false}
               />
@@ -251,9 +315,9 @@ export function Home({ navigation }) {
             <Text style={styles.learnMoreTitle}>Near by</Text>
             <View style={styles.learnMoreItemsWrapper}>
               <FlatList
-                data={learnMoreData}
+                data={nearByLocation}
                 renderItem={renderLearnMoreItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item._id}
                 horizontal
                 showsHorizontalScrollIndicator={false}
               />
