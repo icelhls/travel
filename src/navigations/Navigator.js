@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,7 +13,7 @@ import Signup from "../Screen/Signup";
 import Test from "../Screen/Test";
 import Details from "../Screen/Details";
 import Searchpage from "../Screen/Searchpage";
-
+import { AsyncStorage } from "react-native";
 const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
@@ -49,6 +49,39 @@ const screenOptionStyle = {
 };
 
 const AppNavigator = () => {
+  const [myid, setmyid] = useState("");
+
+  const [start, setstart] = useState(false);
+  const gettoken = async key => {
+    try {
+      const retrievedItem = await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+
+      if (item != null) {
+        setmyid(retrievedItem);
+
+        setstart(true);
+
+        return retrievedItem;
+      } else {
+        setmyid("");
+        ////alert(myid);
+        setstart(true);
+        return "";
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    return;
+  };
+
+  useEffect(() => {
+    gettoken("travelapp");
+  }, []);
+
+  if (!start) return null;
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -56,13 +89,29 @@ const AppNavigator = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Home" component={BottomTabNavigator} />
-        <Stack.Screen name="Signup" component={Signin} />
-        <Stack.Screen name="Test" component={Test} />
-        {/* <Stack.Screen  name="Test" component={Test} />              */}
+        {myid == "" ? (
+          <>
+            <Stack.Screen name="Signup" component={Signin} />
+            <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="Test" component={Test} />
+            {/* <Stack.Screen  name="Test" component={Test} />              */}
 
-        {/* <Stack.Screen  name="Signin" component={Signin} /> */}
-        <Stack.Screen name="Details" component={Details} />
+            {/* <Stack.Screen  name="Signin" component={Signin} /> */}
+            <Stack.Screen name="Details" component={Details} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="Search" component={Searchpage} />
+
+            <Stack.Screen name="Signup" component={Signin} />
+            <Stack.Screen name="Test" component={Test} />
+            {/* <Stack.Screen  name="Test" component={Test} />              */}
+
+            {/* <Stack.Screen  name="Signin" component={Signin} /> */}
+            <Stack.Screen name="Details" component={Details} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

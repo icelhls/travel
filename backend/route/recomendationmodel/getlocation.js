@@ -191,7 +191,7 @@ module.exports = function (router) {
 
     MongoClient.connect(url, async function (err, db) {
       if (err) throw err;
-      const dbo = db.db("travelapp");
+      const dbo = db.db("travelproject");
       // const result1 = await dbo.collection("model").find({id:1}).toArray();
       // console.log("result1", result1);
       const result = await dbo

@@ -23,6 +23,7 @@
     "native-base": "^2.15.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-google-places-autocomplete": "^3.3.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-google-places-autocomplete": "^2.2.0",
