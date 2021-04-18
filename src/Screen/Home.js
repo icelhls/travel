@@ -40,7 +40,6 @@ export function Home({ navigation }) {
   const serverpoint = require("../config");
 
   async function getlocationbymodel() {
-    // alert("ihsfisb");
     axios
       .post(serverpoint.servername + "/getLocations", {
         lat: "3434.434",
@@ -57,7 +56,7 @@ export function Home({ navigation }) {
   async function getDiscoverLocation() {
     //// alert("ihsfisb");
     axios
-      .post(serverpoint.servername + "/getDiscoverLocation", {
+      .post(serverpoint.servername + "/getLocations", {
         lat: "3434.434",
         long: "34343.3434",
       })
@@ -115,7 +114,9 @@ export function Home({ navigation }) {
 
   const renderDiscoverItem = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("Details")}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Details", { placedata: item })}
+      >
         <ImageBackground
           source={{ uri: item.pic1 }}
           style={[

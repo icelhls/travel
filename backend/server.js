@@ -12,6 +12,9 @@ const io = require("socket.io")(server, {
 const path = require("path");
 
 const getlocation = require("./route/recomendationmodel/getlocation");
+
+const review = require("./route/reviews/breviews");
+const comments = require("./route/reviews/comments");
 ////const signupgoogle = require("./route/Registration/signupgoogle");
 
 const sociallogin = require("./route/Registration/sociallogin");
@@ -32,10 +35,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/peer", peerServer);
 getlocation(app);
-
+review(app);
 sociallogin(app);
 emaillogin(app);
-
+comments(app);
 // app.post("/loginnow", (req, res1) => {
 // console.log(req.body)
 // res1.json("dsfsdf")

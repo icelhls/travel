@@ -24,8 +24,9 @@ const TOPNAVI_H = 50;
 const Tab = createMaterialTopTabNavigator();
 
 export default function Details({ navigation, route }) {
-  const place = route.params;
+  const { placedata } = route.params;
   const scrollA = useRef(new Animated.Value(0)).current;
+  const YourComponent = () => <Reviews placeid={placedata} />;
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar barStyle="light-content" translucent backgroundColor="black" />
@@ -41,8 +42,7 @@ export default function Details({ navigation, route }) {
           <AnimatedImage
             style={style.banner(scrollA)}
             source={{
-              uri:
-                "https://image.freepik.com/free-photo/beautiful-wooden-pathway-going-breathtaking-colorful-trees-forest_181624-5840.jpg",
+              uri: placedata.pic1,
             }}
           >
             <View style={style.header}>
@@ -105,7 +105,9 @@ export default function Details({ navigation, route }) {
         </View>
         <Tab.Navigator>
           <Tab.Screen name="Details" component={Detailsmore} />
-          <Tab.Screen name="Reviews" component={Reviews} />
+          <Tab.Screen name="Reviews" component={YourComponent} />
+          {/* component={Reviews}
+          /> */}
           <Tab.Screen name="Pictures" component={Placepics} />
         </Tab.Navigator>
         {/* <View style={style.footer}>
