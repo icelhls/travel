@@ -56,13 +56,15 @@ const AppNavigator = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Home" component={BottomTabNavigator} />
+        <Stack.Screen name="Details" component={Details} />
+
+        {/* <Stack.Screen name="Home" component={BottomTabNavigator} />
         <Stack.Screen name="Signup" component={Signin} />
         <Stack.Screen name="Test" component={Test} />
-        {/* <Stack.Screen  name="Test" component={Test} />              */}
 
-        {/* <Stack.Screen  name="Signin" component={Signin} /> */}
-        <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name="Signin" component={Signin} /> */}
+
+        {/* <Stack.Screen  name="Test" component={Test} />  */}
       </Stack.Navigator>
     </NavigationContainer>
   );

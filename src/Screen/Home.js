@@ -40,7 +40,7 @@ export function Home({ navigation }) {
   const serverpoint = require("../config");
 
   async function getlocationbymodel() {
-    alert("ihsfisb");
+    // alert("ihsfisb");
     axios
       .post(serverpoint.servername + "/getLocations", {
         lat: "3434.434",
@@ -377,6 +377,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 15,
     marginRight: 20,
+    marginLeft: 10,
   },
   discoverItemImage: {
     borderRadius: 20,
