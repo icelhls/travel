@@ -378,6 +378,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 15,
     marginRight: 20,
+    marginLeft: 10,
   },
   discoverItemImage: {
     borderRadius: 20,
