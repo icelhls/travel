@@ -6,6 +6,7 @@ var dbnmae = config.dbnmae;
 
 module.exports = function (router) {
   router.post("/postComments", (req, res) => {
+    console.log(req.body);
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       var dbo = db.db(dbnmae);
@@ -27,6 +28,7 @@ module.exports = function (router) {
   });
 
   router.post("/fetchComments", (req, res) => {
+    console.log(req.body);
     var allposts = [];
 
     MongoClient.connect(
@@ -50,6 +52,17 @@ module.exports = function (router) {
                 longitude: req.body.longitude,
               },
             },
+
+            {
+              $lookup: {
+                from: "users",
+                localField: "uploderid",
+                foreignField: "_id",
+                as: "users",
+              },
+            },
+
+            { $unwind: "$users" },
           ])
           .toArray();
         console.log(allposts);

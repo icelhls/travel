@@ -101,8 +101,8 @@ const AppNavigator = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Search" component={Searchpage} />
+            <Stack.Screen name="Home" component={BottomTabNavigator} />
 
             <Stack.Screen name="Signup" component={Signin} />
             <Stack.Screen name="Test" component={Test} />
