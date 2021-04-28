@@ -41,7 +41,7 @@ export function Home({ navigation }) {
 
   async function getlocationbymodel() {
     axios
-      .post(serverpoint.servername + "/getLocations", {
+      .post(serverpoint.servername + "/getDiscoverLocation", {
         lat: "3434.434",
         long: "34343.3434",
       })

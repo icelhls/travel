@@ -242,7 +242,7 @@ module.exports = function (router) {
                 },
               },
             },
-            // { $match: { calDistance: { $ne: NaN } } },
+            { $match: { rating: { $ne: null } } },
             // { $match: { category: { $in: regex } } },
             {
               $match: {
