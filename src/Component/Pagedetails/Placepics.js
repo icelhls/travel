@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 export default function Placepics() {
   return (
-    <View>
+    <View style={{ position: "absolute" }}>
       <Text>hello</Text>
     </View>
   );

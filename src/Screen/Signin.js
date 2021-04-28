@@ -164,125 +164,59 @@ export default function Signin({ navigation }) {
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
       <Image
-        style={{ width: "100%", height: 200 }}
+        style={styles.logoimg}
         source={require("../assets/images/logo.png")}
         resizeMode="contain"
       />
 
-      <Text style={{ fontSize: 25, color: "black", marginTop: 10 }}>
-        Welcome Back!{" "}
-      </Text>
-      <Text style={{ fontSize: 16, color: "gray", marginTop: 20 }}>
-        Sign in to continue
-      </Text>
+      <Text style={styles.textheader}>Welcome Back! </Text>
+      <Text style={styles.textsubheader}>Sign in to continue</Text>
 
       <TextInput
-        style={{
-          marginTop: 40,
-          borderBottomColor: "#ddd",
-          borderBottomWidth: 1,
-          paddingBottom: 20,
-        }}
+        style={styles.inputstyl}
         placeholder="Username"
         onChangeText={setusername}
       />
       <Text style={{ color: "red" }}>{usernameerror}</Text>
       <TextInput
-        style={{
-          marginTop: 40,
-          borderBottomColor: "#ddd",
-          borderBottomWidth: 1,
-          paddingBottom: 20,
-        }}
+        style={styles.inputstyl}
         placeholder="Password"
         secureTextEntry={true}
         onChangeText={setpass}
       />
-      <Text style={{ color: "red", textAlign: "center", marginTop: 10 }}></Text>
 
       <Text style={{ color: "red" }}>{passerror}</Text>
 
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 10,
-        }}
-      >
+      <View style={styles.viewbuttons}>
         <TouchableOpacity
+          style={styles.buttonsign}
           onPress={() => logininnow()}
-          style={{
-            width: 200,
-            backgroundColor: "#0d47a1",
-            padding: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 40,
-            marginTop: 30,
-          }}
         >
-          <Text style={{ textAlign: "center", color: "#FFF", fontSize: 16 }}>
-            Login Now
-          </Text>
+          <Text style={styles.textsign}>Sign In</Text>
         </TouchableOpacity>
-
-        <Text style={{ marginTop: 20 }}>Forgot Password ?</Text>
-
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
-          <View
-            style={{
-              height: 40,
-              width: 40,
-              borderRadius: 40 / 2,
-              backgroundColor: "#3f51b5",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{ fontSize: 25, fontWeight: "bold", color: "#FFF" }}
-              onPress={facebooklogIn}
-            >
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={{ marginTop: 20 }}>Forgot Password ?</Text>
+        </TouchableOpacity>
+        <View style={styles.viewscoialbtn}>
+          <View style={styles.viewfacebook}>
+            <Text style={styles.socialtext} onPress={facebooklogIn}>
               f
             </Text>
           </View>
-          <View
-            style={{
-              height: 40,
-              width: 40,
-              borderRadius: 40 / 2,
-              backgroundColor: "#f44336",
-              marginHorizontal: 10,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{ fontSize: 25, fontWeight: "bold", color: "#FFF" }}
-              onPress={googlelogin}
-            >
+          <View style={styles.viewgoogle}>
+            <Text style={styles.socialtext} onPress={googlelogin}>
               G
-            </Text>
-          </View>
-          <View
-            style={{
-              height: 40,
-              width: 40,
-              borderRadius: 40 / 2,
-              backgroundColor: "#1565c0",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: 25, fontWeight: "bold", color: "#FFF" }}>
-              in
             </Text>
           </View>
         </View>
 
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <View
+          style={{ flexDirection: "row", marginVertical: 50, marginTop: 15 }}
+        >
           <Text style={{ color: "black" }}>Don't have an account?</Text>
-          <Text style={{ fontWeight: "bold" }}> Sign Up</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+            <Text style={{ fontWeight: "bold" }}> Sign Up</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -293,5 +227,70 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFF",
     padding: 20,
+  },
+  logoimg: {
+    width: "100%",
+    height: 200,
+  },
+  textheader: {
+    fontSize: 25,
+    color: "black",
+    marginTop: 10,
+  },
+  textsubheader: {
+    fontSize: 16,
+    color: "gray",
+    marginTop: 20,
+  },
+  inputstyl: {
+    marginTop: 40,
+    borderBottomColor: "#ddd",
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  viewbuttons: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  buttonsign: {
+    width: 200,
+    backgroundColor: "#0d47a1",
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 40,
+    marginTop: 30,
+  },
+  textsign: {
+    textAlign: "center",
+    color: "#FFF",
+    fontSize: 16,
+  },
+  viewscoialbtn: {
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  viewfacebook: {
+    height: 40,
+    width: 40,
+    borderRadius: 40 / 2,
+    backgroundColor: "#3f51b5",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  socialtext: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#FFF",
+  },
+  viewgoogle: {
+    height: 40,
+    width: 40,
+    borderRadius: 40 / 2,
+    backgroundColor: "#f44336",
+    marginHorizontal: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
