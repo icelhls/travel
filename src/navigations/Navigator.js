@@ -14,6 +14,8 @@ import Test from "../Screen/Test";
 import Details from "../Screen/Details";
 import Searchpage from "../Screen/Searchpage";
 import { AsyncStorage } from "react-native";
+import Detailsmore from "../Component/Pagedetails/Detailsmore";
+import Reviews from "../Component/Pagedetails/Reviews";
 const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
@@ -89,7 +91,8 @@ const AppNavigator = () => {
           headerShown: false,
         }}
       >
-        {myid == "" ? (
+        <Stack.Screen name="Reviews" component={Reviews} />
+        {/* {myid == "" ? (
           <>
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Signup" component={Signup} />
@@ -109,7 +112,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Details" component={Details} />
           </>
-        )}
+        )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );

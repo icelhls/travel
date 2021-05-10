@@ -1,9 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Linking,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
+import {
+  Container,
+  Header,
+  Content,
+  List,
+  ListItem,
+  Thumbnail,
+  Left,
+  Body,
+  Right,
+  Button,
+} from "native-base";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { getToken } from "./../../globalFunction/getToken";
 import axios from "axios";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput } from "react-native-gesture-handler";
 const serverpoint = require("./../../config");
 
 export default function Reviews(props) {
@@ -63,15 +82,46 @@ export default function Reviews(props) {
   }, []);
 
   return (
-    <View>
-      <Rating
-        ratingCount={5}
-        imageSize={60}
-        showRating
-        onFinishRating={ratingCompleted}
-      />
-      <Text>Rating:{avvgRating}</Text>
+    <View style={styles.mainview}>
+      <View style={styles.comment}>
+        <List>
+          <ListItem avatar>
+            <Left>
+              <Thumbnail
+                source={{
+                  uri:
+                    "https://img.freepik.com/free-vector/man-shows-gesture-great-idea_10045-637.jpg?size=338&ext=jpg",
+                }}
+              />
+            </Left>
+            <Body>
+              <Text style={styles.commentname}>Ibad</Text>
+              <Text note>Doing what you like will always keep</Text>
+            </Body>
+            <Right>
+              <Rating
+                showRating
+                imageSize={12}
+                ratingCount={5}
+                startingValue={4}
+                showRating={false}
+                readonly={true}
+              />
+            </Right>
+          </ListItem>
+        </List>
+      </View>
 
+      <View style={styles.rating}>
+        <AirbnbRating
+          count={5}
+          size={30}
+          selectedColor="#f1c40f"
+          showRating
+          onFinishRating={ratingCompleted}
+        />
+        {/* <Text>{avvgRating}</Text> */}
+      </View>
       <TextInput
         style={{
           marginTop: 40,
@@ -83,22 +133,40 @@ export default function Reviews(props) {
         onChangeText={setpostComment}
       />
 
-      <TouchableOpacity
-        onPress={() => passComment()}
-        style={{
-          width: 200,
-          backgroundColor: "#0d47a1",
-          padding: 10,
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 40,
-          marginTop: 30,
-        }}
-      >
+      <TouchableOpacity style={styles.textinput} onPress={() => passComment()}>
         <Text style={{ textAlign: "center", color: "#FFF", fontSize: 16 }}>
-          Post Comment
+          Post
         </Text>
       </TouchableOpacity>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  mainview: {
+    flex: 1,
+    backgroundColor: "#FFF",
+    padding: 20,
+  },
+  rating: {
+    flexDirection: "row",
+    marginTop: 15,
+    paddingVertical: 10,
+  },
+  comment: {
+    marginTop: 15,
+  },
+  commentname: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  textinput: {
+    width: 100,
+    backgroundColor: "#0d47a1",
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 40,
+    marginTop: 30,
+  },
+});
