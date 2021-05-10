@@ -241,7 +241,6 @@ export default function Signup({ navigation }) {
         secureTextEntry={true}
         onChangeText={setpass}
       />
-      <Text style={{ color: "red", textAlign: "center", marginTop: 10 }}></Text>
 
       <Text style={{ color: "red" }}>{passerror}</Text>
 
@@ -277,12 +276,12 @@ export default function Signup({ navigation }) {
           }}
         >
           <Text style={{ textAlign: "center", color: "#FFF", fontSize: 16 }}>
-            Login Now
+            Sign up
           </Text>
         </TouchableOpacity>
-
-        <Text style={{ marginTop: 20 }}>Forgot Password ?</Text>
-
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text style={{ marginTop: 20 }}>skip</Text>
+        </TouchableOpacity>
         <View style={{ flexDirection: "row", marginTop: 20 }}>
           <View
             style={{
@@ -335,9 +334,13 @@ export default function Signup({ navigation }) {
           </View>
         </View>
 
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <View
+          style={{ flexDirection: "row", marginVertical: 50, marginTop: 10 }}
+        >
           <Text style={{ color: "black" }}>Don't have an account?</Text>
-          <Text style={{ fontWeight: "bold" }}> Sign Up</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Text style={{ fontWeight: "bold" }}> Sign In</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

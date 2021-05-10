@@ -91,12 +91,11 @@ const AppNavigator = () => {
       >
         {myid == "" ? (
           <>
-            <Stack.Screen name="Signup" component={Signin} />
+            <Stack.Screen name="Signin" component={Signin} />
+            <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Test" component={Test} />
-            {/* <Stack.Screen  name="Test" component={Test} />              */}
 
-            {/* <Stack.Screen  name="Signin" component={Signin} /> */}
             <Stack.Screen name="Details" component={Details} />
           </>
         ) : (
@@ -106,9 +105,8 @@ const AppNavigator = () => {
 
             <Stack.Screen name="Signup" component={Signin} />
             <Stack.Screen name="Test" component={Test} />
-            {/* <Stack.Screen  name="Test" component={Test} />              */}
 
-            {/* <Stack.Screen  name="Signin" component={Signin} /> */}
+            <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Details" component={Details} />
           </>
         )}
