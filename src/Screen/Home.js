@@ -306,16 +306,6 @@ export function Home({ navigation }) {
             <Text style={styles.activitiesTitle}>Category</Text>
 
             <ListCategories />
-
-            {/* <View style={styles.activitiesItemsWrapper}>
-            <FlatList
-              data={activitiesData}
-              renderItem={renderActivityItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View> */}
           </View>
 
           {/* Learn More */}
@@ -377,6 +367,7 @@ const styles = StyleSheet.create({
   },
   discoverItemsWrapper: {
     paddingVertical: 20,
+    marginLeft: 20,
   },
   discoverItem: {
     width: 170,
@@ -442,6 +433,7 @@ const styles = StyleSheet.create({
   },
   learnMoreItemsWrapper: {
     paddingVertical: 20,
+    marginLeft: 20,
   },
   learnMoreItem: {
     width: 170,

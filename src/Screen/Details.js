@@ -8,6 +8,7 @@ import {
   ScrollView,
   View,
   Text,
+  Touchable,
 } from "react-native";
 import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
@@ -95,9 +96,7 @@ export default function Details({ navigation, route }) {
                   color: COLORS.white,
                   marginBottom: 20,
                 }}
-              >
-                asda
-              </Text>
+              ></Text>
               <View style={{ flexDirection: "row" }}>
                 <Icon name="star" size={30} color={COLORS.yellow} />
                 <Text
@@ -114,15 +113,13 @@ export default function Details({ navigation, route }) {
           </AnimatedImage>
         </View>
         <View style={style.detailsContainer}>
-          <Button onPress={() => switchToMap()}>
-            <Text>Default Small</Text>
-          </Button>
-
           <View style={style.iconContainer}>
-            <FontAwesome5 name="route" color={COLORS.dark} size={30} />
+            <TouchableOpacity onPress={() => switchToMap()}>
+              <FontAwesome5 name="route" color={COLORS.dark} size={30} />
+            </TouchableOpacity>
           </View>
 
-          <View style={{ flexDirection: "row", marginTop: 10 }}>
+          <View style={{ flexDirection: "row", marginTop: 10, flux: 0.8 }}>
             <Icon name="place" size={28} color={COLORS.primary} />
             <Text
               style={{
@@ -141,11 +138,11 @@ export default function Details({ navigation, route }) {
           </Text> */}
         </View>
         <Tab.Navigator>
-          {/* <Tab.Screen name="Details" component={Detailsmore} /> */}
+          <Tab.Screen name="Details" component={Detailsmore} />
           <Tab.Screen name="Reviews" component={YourComponent} />
           {/* component={Reviews}
           /> */}
-          <Tab.Screen name="Pictures" component={Placepics} />
+          {/* <Tab.Screen name="Pictures" component={Placepics} /> */}
         </Tab.Navigator>
         {/* <View style={style.footer}>
   <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>

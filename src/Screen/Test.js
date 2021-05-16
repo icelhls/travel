@@ -1,5 +1,4 @@
-  
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,25 +12,23 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import Fontisto from '@expo/vector-icons/Fontisto';
-import { Rating, AirbnbRating } from 'react-native-ratings';
-import {  mapDarkStyle, mapStandardStyle } from '../Component/mapData';
+import Fontisto from "@expo/vector-icons/Fontisto";
+import { Rating, AirbnbRating } from "react-native-ratings";
+import { mapDarkStyle, mapStandardStyle } from "../Component/mapData";
 
-
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.5;
-const SPACING_FOR_CARD_INSET = width * 0.1 -20;
+const SPACING_FOR_CARD_INSET = width * 0.1 - 20;
 
 export default function Test() {
-
   const [alllocations, setalllocations] = useState([]);
   const [markers, setmarkers] = useState([]);
 
@@ -40,102 +37,93 @@ export default function Test() {
     { image: require("../assets/images/boatbeach.png") },
     { image: require("../assets/images/australia.png") },
     { image: require("../assets/images/kayak.png") },
-];
+  ];
 
-async function recomendedpoints(){
-   var lat=74.2227181;
-  var long=31.4137617;
+  async function recomendedpoints() {
+    var lat = 74.2227181;
+    var long = 31.4137617;
 
-const response= await fetch('http://192.168.0.100:5000'+"/getLocations", {
-  method: "post",
-  headers: {
-    "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-  },
-   body: `lat=${lat}&long=${long}`,
-});
-const json=await response.json();  
+    const response = await fetch(
+      "http://192.168.0.100:5000" + "/getLocations",
+      {
+        method: "post",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+        },
+        body: `lat=${lat}&long=${long}`,
+      }
+    );
+    const json = await response.json();
 
+    setalllocations(json);
 
-setalllocations(json)
+    /// setlat(location.coords.latitude)
 
- /// setlat(location.coords.latitude)
-
-   //setlong(location.coords.longitude)
-  
-
-}
-
+    //setlong(location.coords.longitude)
+  }
 
   useEffect(() => {
-
     recomendedpoints();
 
-  
-     
-
-      // var myModule = require('../../config');
-
-    
-
-
-
-
+    // var myModule = require('../../config');
   }, []);
 
- 
-
-  for(var i=0;i<alllocations.length;i++)
-{
-  markers.push({
-    coordinate: {
-      latitude: alllocations[i].latitude,
-      longitude: alllocations[i].longitude,
-    },
-    title: "Amazing Food Place",
-    description: "This is the best food place",
-    image: Images[0].image,
-    rating: 4,
-    reviews: 99,
-  },)
-}
-
-
-
-
-
-
-
-
-
-
-
+  for (var i = 0; i < alllocations.length; i++) {
+    markers.push({
+      coordinate: {
+        latitude: alllocations[i].latitude,
+        longitude: alllocations[i].longitude,
+      },
+      title: "Amazing Food Place",
+      description: "This is the best food place",
+      image: Images[0].image,
+      rating: 4,
+      reviews: 99,
+    });
+  }
 
   const theme = useTheme();
 
   const initialMapState = {
     markers,
     categories: [
-      { 
-        name: 'Fastfood Center', 
-        icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
+      {
+        name: "Fastfood Center",
+        icon: (
+          <MaterialCommunityIcons
+            style={styles.chipsIcon}
+            name="food-fork-drink"
+            size={18}
+          />
+        ),
       },
       {
-        name: 'Restaurant',
-        icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
+        name: "Restaurant",
+        icon: (
+          <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />
+        ),
       },
       {
-        name: 'Dineouts',
-        icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
+        name: "Dineouts",
+        icon: (
+          <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />
+        ),
       },
       {
-        name: 'Snacks Corner',
-        icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
+        name: "Snacks Corner",
+        icon: (
+          <MaterialCommunityIcons
+            name="food"
+            style={styles.chipsIcon}
+            size={18}
+          />
+        ),
       },
       {
-        name: 'Hotel',
+        name: "Hotel",
         icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
       },
-  ],
+    ],
     region: {
       latitude: 74.2227181,
       longitude: 31.4137617,
@@ -162,7 +150,7 @@ setalllocations(json)
       clearTimeout(regionTimeout);
 
       const regionTimeout = setTimeout(() => {
-        if( mapIndex !== index ) {
+        if (mapIndex !== index) {
           mapIndex = index;
           const { coordinate } = state.markers[index];
           _map.current.animateToRegion(
@@ -182,36 +170,35 @@ setalllocations(json)
     const inputRange = [
       (index - 1) * CARD_WIDTH,
       index * CARD_WIDTH,
-      ((index + 1) * CARD_WIDTH),
+      (index + 1) * CARD_WIDTH,
     ];
 
     const scale = mapAnimation.interpolate({
       inputRange,
       outputRange: [1, 1.5, 1],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
 
     return { scale };
   });
 
-  const onMarkerPress = (mapEventData) => {
+  const onMarkerPress = mapEventData => {
     const markerID = mapEventData._targetInst.return.key;
 
-    let x = (markerID * CARD_WIDTH) + (markerID * 20); 
-    if (Platform.OS === 'ios') {
+    let x = markerID * CARD_WIDTH + markerID * 20;
+    if (Platform.OS === "ios") {
       x = x - SPACING_FOR_CARD_INSET;
     }
 
-    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
-  }
+    _scrollView.current.scrollTo({ x: x, y: 0, animated: true });
+  };
 
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
 
-
   return (
     <View style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#4CCDFB" />
+      <StatusBar barStyle="light-content" backgroundColor="#4CCDFB" />
       <MapView
         ref={_map}
         initialRegion={state.region}
@@ -228,10 +215,14 @@ setalllocations(json)
             ],
           };
           return (
-            <MapView.Marker key={index} coordinate={marker.coordinate} onPress={(e)=>onMarkerPress(e)}>
+            <MapView.Marker
+              key={index}
+              coordinate={marker.coordinate}
+              onPress={e => onMarkerPress(e)}
+            >
               <Animated.View style={[styles.markerWrap]}>
                 <Animated.Image
-                  source={require('../assets/images/map_marker.png')}
+                  source={require("../assets/images/map_marker.png")}
                   style={[styles.marker, scaleStyle]}
                   resizeMode="cover"
                 />
@@ -241,11 +232,11 @@ setalllocations(json)
         })}
       </MapView>
       <View style={styles.searchBox}>
-        <TextInput 
+        <TextInput
           placeholder="Search here"
           placeholderTextColor="#000"
           autoCapitalize="none"
-          style={{flex:1,padding:0}}
+          style={{ flex: 1, padding: 0 }}
         />
         <Ionicons name="ios-search" size={20} />
       </View>
@@ -255,14 +246,15 @@ setalllocations(json)
         showsHorizontalScrollIndicator={false}
         height={50}
         style={styles.chipsScrollView}
-        contentInset={{ // iOS only
-          top:0,
-          left:0,
-          bottom:0,
-          right:20
+        contentInset={{
+          // iOS only
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 20,
         }}
         contentContainerStyle={{
-          paddingRight: Platform.OS === 'android' ? 20 : 0
+          paddingRight: Platform.OS === "android" ? 20 : 0,
         }}
       >
         {state.categories.map((category, index) => (
@@ -273,10 +265,6 @@ setalllocations(json)
         ))}
       </ScrollView>
 
-
-
-
-      
       <Animated.ScrollView
         ref={_scrollView}
         horizontal
@@ -290,10 +278,11 @@ setalllocations(json)
           top: 0,
           left: SPACING_FOR_CARD_INSET,
           bottom: 0,
-          right: SPACING_FOR_CARD_INSET
+          right: SPACING_FOR_CARD_INSET,
         }}
         contentContainerStyle={{
-          paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
+          paddingHorizontal:
+            Platform.OS === "android" ? SPACING_FOR_CARD_INSET : 0,
         }}
         onScroll={Animated.event(
           [
@@ -301,109 +290,97 @@ setalllocations(json)
               nativeEvent: {
                 contentOffset: {
                   x: mapAnimation,
-                }
+                },
               },
             },
           ],
-          {useNativeDriver: true}
+          { useNativeDriver: true }
         )}
       >
-        {state.markers.map((marker, index) =>(
-
-
-
-<View
-key={index}
-style={{
-  backgroundColor: "#FEFEFE",
-  height: 200,
-  width: CARD_WIDTH,
-  borderRadius: 15,
-  marginRight:20,
-  padding: 5,
-}}
->
-<Image
-  source={marker.image}
-  style={{ width: 170, borderRadius: 10, height: 130 }}
-/>
-<View
-  style={{
-    flexDirection: "row",
-    width: 150,
-    alignItems: "center",
-  }}
->
-  <View
-    style={{
-      paddingHorizontal: 5,
-      paddingVertical: 5,
-    }}
-  >
-    <Text
-      style={{
-    
-        fontSize: 16,
-        color: "black",
-      }}
-    >
-      {marker.title}
-    </Text>
-  </View>
-  <Ionicons name="map-marker" size={25} color="#ff5c83" />
-</View>
-<Rating size={2} imageSize={16} startingValue={4.3}/>           
- </View>
-
-
-
-
-
-
-         
+        {state.markers.map((marker, index) => (
+          <View
+            key={index}
+            style={{
+              backgroundColor: "#FEFEFE",
+              height: 200,
+              width: CARD_WIDTH,
+              borderRadius: 15,
+              marginRight: 20,
+              padding: 5,
+            }}
+          >
+            <Image
+              source={marker.image}
+              style={{ width: 170, borderRadius: 10, height: 130 }}
+            />
+            <View
+              style={{
+                flexDirection: "row",
+                width: 150,
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  paddingHorizontal: 5,
+                  paddingVertical: 5,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "black",
+                  }}
+                >
+                  {marker.title}
+                </Text>
+              </View>
+              <Ionicons name="map-marker" size={25} color="#ff5c83" />
+            </View>
+            <Rating size={2} imageSize={16} startingValue={4.3} />
+          </View>
         ))}
       </Animated.ScrollView>
     </View>
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   searchBox: {
-    position:'absolute', 
-    marginTop: Platform.OS === 'ios' ? 40 : 20, 
-    flexDirection:"row",
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf:'center',
+    position: "absolute",
+    marginTop: Platform.OS === "ios" ? 40 : 20,
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    width: "90%",
+    alignSelf: "center",
     borderRadius: 5,
     padding: 10,
-    shadowColor: '#ccc',
+    shadowColor: "#ccc",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
   },
   chipsScrollView: {
-    position:'absolute', 
-    top:Platform.OS === 'ios' ? 90 : 80, 
-    paddingHorizontal:10
+    position: "absolute",
+    top: Platform.OS === "ios" ? 90 : 80,
+    paddingHorizontal: 10,
   },
   chipsIcon: {
     marginRight: 5,
   },
   chipsItem: {
-    flexDirection:"row",
-    backgroundColor:'#fff', 
-    borderRadius:20,
-    padding:8,
-    paddingHorizontal:20, 
-    marginHorizontal:10,
-    height:35,
-    shadowColor: '#ccc',
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 8,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    height: 35,
+    shadowColor: "#ccc",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -456,26 +433,26 @@ const styles = StyleSheet.create({
   markerWrap: {
     alignItems: "center",
     justifyContent: "center",
-    width:50,
-    height:50,
+    width: 50,
+    height: 50,
   },
   marker: {
     width: 30,
     height: 30,
   },
   button: {
-    alignItems: 'center',
-    marginTop: 5
+    alignItems: "center",
+    marginTop: 5,
   },
   signIn: {
-      width: '100%',
-      padding:5,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 3
+    width: "100%",
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
   },
   textSign: {
-      fontSize: 14,
-      fontWeight: 'bold'
-  }
+    fontSize: 14,
+    fontWeight: "bold",
+  },
 });
