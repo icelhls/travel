@@ -26,53 +26,53 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 
 export function Maps({ navigation, route }) {
-  const { placedata } = route.params;
+  // const { placedata } = route.params;
   ///alert(placedata.latitude);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [lat, setlat] = useState(placedata.latitude);
-  const [long, setlong] = useState(placedata.longitude);
+  const [lat, setlat] = useState(0);
+  const [long, setlong] = useState(0);
 
   const [alllocations, setalllocations] = useState([]);
 
   const origin = { latitude: lat, longitude: long };
   const destination = { latitude: 33.6844, longitude: 73.0479 };
-  // const GOOGLE_MAPS_APIKEY = 'AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U';
-  const GOOGLE_MAPS_APIKEY = "";
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U";
+  //const GOOGLE_MAPS_APIKEY = "";
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
 
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     // var myModule = require('../../config');
-  //     const response = await fetch(
-  //       "http://192.168.1.105:5000" + "/api/getLocations",
-  //       {
-  //         method: "post",
-  //         headers: {
-  //           "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-  //         },
-  //         body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
-  //       }
-  //     );
-  //     const json = await response.json();
+      let location = await Location.getCurrentPositionAsync({});
+      // var myModule = require('../../config');
+      // const response = await fetch(
+      //   "http://192.168.1.105:5000" + "/api/getLocations",
+      //   {
+      //     method: "post",
+      //     headers: {
+      //       "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+      //     },
+      //     body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
+      //   }
+      // );
+      // const json = await response.json();
 
-  //     setalllocations(json);
-  //     console.warn(json);
-  //     setLocation(location);
-  //     setlat(json[0].latitude);
-  //     setlong(json[0].longitude);
-  //     /// setlat(location.coords.latitude)
+      // setalllocations(json);
+      // console.warn(json);
+      // setLocation(location);
+      // setlat(json[0].latitude);
+      // setlong(json[0].longitude);
+      setlat(location.coords.latitude);
 
-  //     //setlong(location.coords.longitude)
-  //   })();
-  // }, [lat, long]);
+      setlong(location.coords.longitude);
+    })();
+  }, [lat, long]);
 
   let text = "Waiting..";
   if (errorMsg) {

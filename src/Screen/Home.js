@@ -27,6 +27,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { getToken } from "../globalFunction/getToken";
+import { removetoken } from "../globalFunction/getToken";
 Feather.loadFont();
 Entypo.loadFont();
 
@@ -42,7 +43,6 @@ export function Home({ navigation }) {
   async function getlocationbymodel() {
     var interests = await getToken("interests");
 
-    alert(interests);
     axios
       .post(serverpoint.servername + "/getDiscoverLocation", {
         lat: "3434.434",
@@ -192,14 +192,16 @@ export function Home({ navigation }) {
               paddingHorizontal: 20,
             }}
           >
-            <Feather
-              name="menu"
-              size={32}
-              color={colors.white}
-              style={{
-                marginTop: 30,
-              }}
-            />
+            <TouchableOpacity onPress={() => removetoken("travelapp")}>
+              <Feather
+                name="log-out"
+                size={32}
+                color={colors.white}
+                style={{
+                  marginTop: 30,
+                }}
+              />
+            </TouchableOpacity>
             <View
               style={{
                 flexDirection: "row",
@@ -222,7 +224,8 @@ export function Home({ navigation }) {
               <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Image
                   source={{
-                    uri: "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                    uri:
+                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
                   }}
                   style={{ height: 60, width: 60, borderRadius: 60 }}
                 />
@@ -309,16 +312,6 @@ export function Home({ navigation }) {
             <Text style={styles.activitiesTitle}>Category</Text>
 
             <ListCategories />
-
-            {/* <View style={styles.activitiesItemsWrapper}>
-            <FlatList
-              data={activitiesData}
-              renderItem={renderActivityItem}
-              keyExtractor={(item) => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-          </View> */}
           </View>
 
           {/* Learn More */}
@@ -380,6 +373,7 @@ const styles = StyleSheet.create({
   },
   discoverItemsWrapper: {
     paddingVertical: 20,
+    marginLeft: 20,
   },
   discoverItem: {
     width: 170,
@@ -445,6 +439,7 @@ const styles = StyleSheet.create({
   },
   learnMoreItemsWrapper: {
     paddingVertical: 20,
+    marginLeft: 20,
   },
   learnMoreItem: {
     width: 170,

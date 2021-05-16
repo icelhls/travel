@@ -29,6 +29,12 @@ export default function Detailsmore() {
     }
   }, [url]);
 
+  const getMapRegion = () => ({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
   return (
     <View style={styles.mainview}>
       <View style={styles.detailview}>
@@ -48,23 +54,15 @@ export default function Detailsmore() {
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
+          initialRegion={getMapRegion()}
         >
           <Marker
-            coordinate={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
+            coordinate={getMapRegion()}
             title="Test Title"
             description="This is the test description"
-          ></Marker>
+          >
+            <Callout tooltip></Callout>
+          </Marker>
         </MapView>
       </View>
     </View>
@@ -90,6 +88,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   map: {
-    height: "50%",
+    height: "70%",
   },
 });
