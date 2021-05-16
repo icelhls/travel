@@ -118,14 +118,6 @@ export default function Details({ navigation, route }) {
           </AnimatedImage>
         </View>
         <View style={style.detailsContainer}>
-          <Button onPress={() => switchToMap()}>
-            <Text>Default Small</Text>
-          </Button>
-
-          <Button onPress={() => removetoken("travelapp")}>
-            <Text>Logout</Text>
-          </Button>
-
           <View style={style.iconContainer}>
             <TouchableOpacity onPress={() => switchToMap()}>
               <FontAwesome5 name="route" color={COLORS.dark} size={30} />

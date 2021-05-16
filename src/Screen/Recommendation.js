@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { CheckBox, Text, StyleSheet, View } from "react-native";
 import { Button } from "native-base";
 import { AsyncStorage } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 export default function Recommendation({ navigation, route }) {
   const [GasStations, setGasStations] = useState(false);
   const [GuestHouses, setGuestHouses] = useState(false);
@@ -78,6 +81,13 @@ export default function Recommendation({ navigation, route }) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={{ marginLeft: 20, marginTop: 20 }}
+        onPress={() => navigation.navigate("Home")}
+      >
+        <AntDesign name="close" size={24} color="black" />
+      </TouchableOpacity>
+
       <View style={styles.checkboxContainer}>
         <CheckBox
           value={GasStations}
@@ -168,8 +178,11 @@ export default function Recommendation({ navigation, route }) {
         <Text style={styles.label}>TouristAttraction</Text>
       </View>
 
-      <Button onPress={handleClick}>
-        <Text>Update</Text>
+      <Button
+        onPress={handleClick}
+        style={{ marginLeft: 10, paddingHorizontal: 50 }}
+      >
+        <Text style={{ color: "white" }}>Update</Text>
       </Button>
     </View>
   );
@@ -177,12 +190,12 @@ export default function Recommendation({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   checkboxContainer: {
     flexDirection: "row",
     marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
   checkbox: {
     alignSelf: "center",
