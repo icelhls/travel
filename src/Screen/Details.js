@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ImageBackground,
   SafeAreaView,
@@ -9,12 +9,14 @@ import {
   View,
   Text,
 } from "react-native";
+import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import COLORS from "../assets/colors/colors";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Profile from "./Profile";
 import Signin from "./Signin";
 import Detailsmore from "../Component/Pagedetails/Detailsmore";
+const serverpoint = require("../config");
 import Reviews from "../Component/Pagedetails/Reviews";
 import Placepics from "../Component/Pagedetails/Placepics";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -25,8 +27,26 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function Details({ navigation, route }) {
   const { placedata } = route.params;
+  console.log(placedata);
+  const [avvgRating, setavvgRating] = React.useState("");
   const scrollA = useRef(new Animated.Value(0)).current;
   const YourComponent = () => <Reviews placeid={placedata} />;
+
+  async function checkReviews() {
+    axios
+      .post(serverpoint.servername + "/fetchReviews", {
+        latitude: placedata.latitude,
+        longitude: placedata.longitude,
+      })
+      .then(res => {
+        // alert(res.data)
+        setavvgRating(res.data[0].averagerating);
+      });
+  }
+  useEffect(() => {
+    checkReviews();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar barStyle="light-content" translucent backgroundColor="black" />
@@ -75,7 +95,7 @@ export default function Details({ navigation, route }) {
                     fontSize: 20,
                   }}
                 >
-                  5.0
+                  {avvgRating}
                 </Text>
               </View>
             </View>
@@ -95,7 +115,7 @@ export default function Details({ navigation, route }) {
                 color: COLORS.primary,
               }}
             >
-              gdfg
+              {placedata.title}
             </Text>
           </View>
 
@@ -104,7 +124,7 @@ export default function Details({ navigation, route }) {
           </Text> */}
         </View>
         <Tab.Navigator>
-          <Tab.Screen name="Details" component={Detailsmore} />
+          {/* <Tab.Screen name="Details" component={Detailsmore} /> */}
           <Tab.Screen name="Reviews" component={YourComponent} />
           {/* component={Reviews}
           /> */}

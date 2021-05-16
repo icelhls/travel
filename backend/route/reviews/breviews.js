@@ -62,6 +62,8 @@ module.exports = function (router) {
   });
 
   router.post("/fetchReviews", (req, res) => {
+    console.log("======fetch--");
+    console.log(req.body);
     var allposts = [];
 
     MongoClient.connect(

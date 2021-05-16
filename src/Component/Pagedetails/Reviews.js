@@ -31,25 +31,16 @@ export default function Reviews(props) {
   const [allComments, setallComments] = React.useState([]);
   async function passComment() {
     var userdata = await getToken("travelapp");
-    axios.post(serverpoint.servername + "/postComments", {
-      uploderid: JSON.parse(userdata)._id,
-      latitude: props.placeid.latitude,
-      longitude: props.placeid.longitude,
-      comment: postComment,
-    });
-  }
-
-  async function checkReviews() {
-    var userdata = await getToken("travelapp");
     axios
-      .post(serverpoint.servername + "/fetchReviews", {
+      .post(serverpoint.servername + "/postComments", {
         uploderid: JSON.parse(userdata)._id,
         latitude: props.placeid.latitude,
         longitude: props.placeid.longitude,
+        comment: postComment,
       })
       .then(res => {
         // alert(res.data)
-        setavvgRating(res.data[0].averagerating);
+        fetchComments();
       });
   }
 
@@ -77,7 +68,7 @@ export default function Reviews(props) {
     });
   }
   useEffect(() => {
-    checkReviews();
+    ///  checkReviews();
     fetchComments();
   }, []);
 
@@ -85,30 +76,23 @@ export default function Reviews(props) {
     <View style={styles.mainview}>
       <View style={styles.comment}>
         <List>
-          <ListItem avatar>
-            <Left>
-              <Thumbnail
-                source={{
-                  uri:
-                    "https://img.freepik.com/free-vector/man-shows-gesture-great-idea_10045-637.jpg?size=338&ext=jpg",
-                }}
-              />
-            </Left>
-            <Body>
-              <Text style={styles.commentname}>Ibad</Text>
-              <Text note>Doing what you like will always keep</Text>
-            </Body>
-            <Right>
-              <Rating
-                showRating
-                imageSize={12}
-                ratingCount={5}
-                startingValue={4}
-                showRating={false}
-                readonly={true}
-              />
-            </Right>
-          </ListItem>
+          {allComments.map((s, i) => (
+            <>
+              <ListItem avatar>
+                <Left>
+                  <Thumbnail
+                    source={{
+                      uri: s.users.img,
+                    }}
+                  />
+                </Left>
+                <Body>
+                  <Text style={styles.commentname}>{s.users.fname}</Text>
+                  <Text note>{s.comment}</Text>
+                </Body>
+              </ListItem>
+            </>
+          ))}
         </List>
       </View>
 

@@ -5,7 +5,7 @@ var url = config.mongoURI;
 var dbnmae = config.dbnmae;
 
 module.exports = function (router) {
-  router.post("/postComments", (req, res) => {
+  router.post("/postComments", (req, res1) => {
     console.log(req.body);
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
@@ -21,6 +21,8 @@ module.exports = function (router) {
       dbo.collection("comments").insertOne(myobj, function (err, res) {
         if (err) throw err;
         ////console.log("1 document inserted");
+
+        res1.json("done");
         /// res1.json("Request For Approvel Has been  Sent");
         /// db.close();
       });

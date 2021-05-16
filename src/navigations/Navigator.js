@@ -91,8 +91,8 @@ const AppNavigator = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Reviews" component={Reviews} />
-        {/* {myid == "" ? (
+        {/* <Stack.Screen name="Reviews" component={Reviews} /> */}
+        {myid == "" ? (
           <>
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Signup" component={Signup} />
@@ -103,8 +103,9 @@ const AppNavigator = () => {
           </>
         ) : (
           <>
+ <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Search" component={Searchpage} />
-            <Stack.Screen name="Home" component={BottomTabNavigator} />
+           
 
             <Stack.Screen name="Signup" component={Signin} />
             <Stack.Screen name="Test" component={Test} />
@@ -112,7 +113,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Signin" component={Signin} />
             <Stack.Screen name="Details" component={Details} />
           </>
-        )} */}
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

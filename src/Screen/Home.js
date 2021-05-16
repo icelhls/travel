@@ -115,7 +115,9 @@ export function Home({ navigation }) {
   const renderDiscoverItem = ({ item }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Details", { placedata: item })}
+        onPress={() =>
+          navigation.navigate("Details", { placedata: item, from: "database" })
+        }
       >
         <ImageBackground
           source={{ uri: item.pic1 }}
@@ -153,18 +155,22 @@ export function Home({ navigation }) {
 
   const renderLearnMoreItem = ({ item }) => {
     return (
-      <ImageBackground
-        source={{ uri: item.pic1 }}
-        style={[
-          styles.learnMoreItem,
-          {
-            marginLeft: item._id === "learnMore-1" ? 20 : 0,
-          },
-        ]}
-        imageStyle={styles.learnMoreItemImage}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Details", { placedata: item })}
       >
-        <Text style={styles.learnMoreItemText}>{item.title}</Text>
-      </ImageBackground>
+        <ImageBackground
+          source={{ uri: item.pic1 }}
+          style={[
+            styles.learnMoreItem,
+            {
+              marginLeft: item._id === "learnMore-1" ? 20 : 0,
+            },
+          ]}
+          imageStyle={styles.learnMoreItemImage}
+        >
+          <Text style={styles.learnMoreItemText}>{item.title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   };
 
@@ -212,8 +218,7 @@ export function Home({ navigation }) {
               <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Image
                   source={{
-                    uri:
-                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                    uri: "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
                   }}
                   style={{ height: 60, width: 60, borderRadius: 60 }}
                 />
@@ -226,6 +231,7 @@ export function Home({ navigation }) {
               <Icon name="search" size={28} />
               <TextInput
                 placeholder="Search place"
+                onPress={() => navigation.navigate("Search")}
                 style={{
                   fontWeight: "bold",
                   fontSize: 18,

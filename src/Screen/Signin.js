@@ -68,6 +68,7 @@ export default function Signin({ navigation }) {
             // alert(res.data)
             // console.log(res.data)
             storetoken("travelapp", res.data);
+            navigation.navigate("Home");
           });
         ////  alert(final.id)
       } else {
@@ -155,6 +156,7 @@ export default function Signin({ navigation }) {
         })
         .then(res => {
           storetoken("travelapp", res.data);
+          navigation.navigate("Home");
         });
     }
   }
