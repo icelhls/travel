@@ -98,15 +98,15 @@ const AppNavigator = () => {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Test" component={Test} />
-
+            <Tab.Screen name="Maps" component={Maps} />
             <Stack.Screen name="Details" component={Details} />
           </>
         ) : (
           <>
- <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Search" component={Searchpage} />
-           
 
+            <Tab.Screen name="Maps" component={Maps} />
             <Stack.Screen name="Signup" component={Signin} />
             <Stack.Screen name="Test" component={Test} />
 

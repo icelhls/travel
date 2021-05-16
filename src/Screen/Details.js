@@ -20,6 +20,10 @@ const serverpoint = require("../config");
 import Reviews from "../Component/Pagedetails/Reviews";
 import Placepics from "../Component/Pagedetails/Placepics";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { Maps } from "../Screen/Maps";
+import { Button } from "native-base";
 var AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 const BANNER_H = 270;
 const TOPNAVI_H = 50;
@@ -46,6 +50,14 @@ export default function Details({ navigation, route }) {
   useEffect(() => {
     checkReviews();
   }, []);
+
+  function switchToMap() {
+    if (placedata.latitude != "") {
+      navigation.navigate("Maps", { placedata: placedata });
+    } else {
+      alert("no location");
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -102,9 +114,14 @@ export default function Details({ navigation, route }) {
           </AnimatedImage>
         </View>
         <View style={style.detailsContainer}>
+          <Button onPress={() => switchToMap()}>
+            <Text>Default Small</Text>
+          </Button>
+
           <View style={style.iconContainer}>
             <FontAwesome5 name="route" color={COLORS.dark} size={30} />
           </View>
+
           <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Icon name="place" size={28} color={COLORS.primary} />
             <Text
