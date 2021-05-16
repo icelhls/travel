@@ -26,7 +26,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
-
+import { getToken } from "../globalFunction/getToken";
 Feather.loadFont();
 Entypo.loadFont();
 
@@ -40,10 +40,14 @@ export function Home({ navigation }) {
   const serverpoint = require("../config");
 
   async function getlocationbymodel() {
+    var interests = await getToken("interests");
+
+    alert(interests);
     axios
       .post(serverpoint.servername + "/getDiscoverLocation", {
         lat: "3434.434",
         long: "34343.3434",
+        interests: interests,
       })
       .then(res => {
         // alert(res.data)
@@ -218,8 +222,7 @@ export function Home({ navigation }) {
               <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Image
                   source={{
-                    uri:
-                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                    uri: "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
                   }}
                   style={{ height: 60, width: 60, borderRadius: 60 }}
                 />
