@@ -90,7 +90,7 @@ module.exports = function (router) {
     });
   });
 
-  router.post("/getDiscoverLocation", (req, res) => {
+  router.post("/getDiscoverLocation", async (req, res) => {
     // console.log("its orginal only here kjbdsbkfsdkjbfksj");
     // var lat = 74.2227181;
     // var long = 31.4137617;
@@ -179,10 +179,13 @@ module.exports = function (router) {
     //   res.json(result);
     // });
 
-    console.log("its orginal only here kjbdsbkfsdkjbfksj");
+    console.log(req.body.interests);
     var lat = 74.2227181;
     var long = 31.4137617;
-    const category = ["Hotel", "Hist", "Swim"];
+    let intrests = [];
+
+    intrests.push(req.body.interests);
+    const category = await intrests;
     var regex = category.map(function (val) {
       return new RegExp(val, "i");
     });

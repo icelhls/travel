@@ -15,3 +15,14 @@ export const getToken = async key => {
   }
   return;
 };
+
+export const removetoken = async key => {
+  try {
+    await AsyncStorage.removeItem(key);
+    alert("runnn");
+
+    return true;
+  } catch (exception) {
+    return false;
+  }
+};

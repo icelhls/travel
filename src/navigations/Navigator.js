@@ -100,11 +100,13 @@ const AppNavigator = () => {
             <Stack.Screen name="Home" component={BottomTabNavigator} />
             <Stack.Screen name="Test" component={Test} />
             <Tab.Screen name="Maps" component={Maps} />
+            <Stack.Screen name="Recommendation" component={Recommendation} />
             <Stack.Screen name="Details" component={Details} />
           </>
         ) : (
           <>
             <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="Recommendation" component={Recommendation} />
             <Stack.Screen name="Search" component={Searchpage} />
 
             <Tab.Screen name="Maps" component={Maps} />

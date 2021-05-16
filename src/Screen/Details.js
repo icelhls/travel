@@ -21,6 +21,7 @@ import Reviews from "../Component/Pagedetails/Reviews";
 import Placepics from "../Component/Pagedetails/Placepics";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { removetoken } from "../globalFunction/getToken";
 
 import { Maps } from "../Screen/Maps";
 import { Button } from "native-base";
@@ -52,10 +53,14 @@ export default function Details({ navigation, route }) {
   }, []);
 
   function switchToMap() {
-    if (placedata.latitude != "") {
-      navigation.navigate("Maps", { placedata: placedata });
-    } else {
+    let checklat = placedata.latitude.toString();
+
+    let lastWord = checklat.substring(checklat.length - 3, checklat.length);
+
+    if (lastWord == "lat") {
       alert("no location");
+    } else {
+      navigation.navigate("Maps", { placedata: placedata });
     }
   }
 
@@ -116,6 +121,10 @@ export default function Details({ navigation, route }) {
         <View style={style.detailsContainer}>
           <Button onPress={() => switchToMap()}>
             <Text>Default Small</Text>
+          </Button>
+
+          <Button onPress={() => removetoken("travelapp")}>
+            <Text>Logout</Text>
           </Button>
 
           <View style={style.iconContainer}>

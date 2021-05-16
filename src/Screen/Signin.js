@@ -15,6 +15,8 @@ import axios from "axios";
 import { AsyncStorage } from "react-native";
 import { useScreens } from "react-native-screens";
 
+import { getToken } from "../globalFunction/getToken";
+
 //  import * as Animatable from 'react-native-animatable';
 
 export default function Signin({ navigation }) {
@@ -40,17 +42,13 @@ export default function Signin({ navigation }) {
   };
 
   async function facebooklogIn() {
+    let interests = await getToken("interests");
     try {
       await Facebook.initializeAsync("1667224953462264");
-      const {
-        type,
-        token,
-        expirationDate,
-        permissions,
-        declinedPermissions,
-      } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ["public_profile"],
-      });
+      const { type, token, expirationDate, permissions, declinedPermissions } =
+        await Facebook.logInWithReadPermissionsAsync({
+          permissions: ["public_profile"],
+        });
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
@@ -68,7 +66,12 @@ export default function Signin({ navigation }) {
             // alert(res.data)
             // console.log(res.data)
             storetoken("travelapp", res.data);
-            navigation.navigate("Home");
+
+            if (interests == "") {
+              navigation.navigate("Recommendation");
+            } else {
+              navigation.navigate("Home");
+            }
           });
         ////  alert(final.id)
       } else {
@@ -91,23 +94,8 @@ export default function Signin({ navigation }) {
     }
   };
 
-  const gettoken = async key => {
-    try {
-      const retrievedItem = await AsyncStorage.getItem(key);
-      const item = JSON.parse(retrievedItem);
-
-      if (item != null) {
-        return retrievedItem;
-      } else {
-        return "";
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-    return;
-  };
-
   async function googlelogin() {
+    let interests = await getToken("interests");
     const { type, accessToken, user } = await Google.logInAsync({
       androidClientId:
         "1058542661103-stjukh4vl9m06be8m6m7l0g8ihsv9gch.apps.googleusercontent.com",
@@ -126,13 +114,18 @@ export default function Signin({ navigation }) {
         })
         .then(res => {
           storetoken("travelapp", res.data);
-          navigation.navigate("Home");
-          console.log(res.data);
+
+          if (interests == "") {
+            navigation.navigate("Recommendation");
+          } else {
+            navigation.navigate("Home");
+          }
         });
     }
   }
 
   async function logininnow() {
+    let interests = await getToken("interests");
     // var obje=await gettoken("travelapp");
     // alert(JSON.parse(obje).fname)
 
@@ -156,7 +149,12 @@ export default function Signin({ navigation }) {
         })
         .then(res => {
           storetoken("travelapp", res.data);
-          navigation.navigate("Home");
+
+          if (interests == "") {
+            navigation.navigate("Recommendation");
+          } else {
+            navigation.navigate("Home");
+          }
         });
     }
   }
