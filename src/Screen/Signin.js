@@ -197,7 +197,7 @@ export default function Signin({ navigation }) {
           <Text style={styles.textsign}>Sign In</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text style={{ marginTop: 20 }}>Forgot Password ?</Text>
+          <Text style={{ marginTop: 20 }}>skip</Text>
         </TouchableOpacity>
         <View style={styles.viewscoialbtn}>
           <View style={styles.viewfacebook}>

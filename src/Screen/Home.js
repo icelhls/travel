@@ -218,7 +218,8 @@ export function Home({ navigation }) {
               <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Image
                   source={{
-                    uri: "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                    uri:
+                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
                   }}
                   style={{ height: 60, width: 60, borderRadius: 60 }}
                 />
@@ -231,7 +232,7 @@ export function Home({ navigation }) {
               <Icon name="search" size={28} />
               <TextInput
                 placeholder="Search place"
-                onPress={() => navigation.navigate("Search")}
+                onFocus={() => navigation.navigate("Search")}
                 style={{
                   fontWeight: "bold",
                   fontSize: 18,
