@@ -17,13 +17,13 @@ export default function Home({ navigation }) {
 
       lat = data.geometry.location.lat;
       long = data.geometry.location.lng;
-      pic1 = "";
+      ///pic1 = "https://www.panpuri.com/asset/images/product/noimg.jpg";
     } else {
       title = data.description;
 
       lat = data.description + "lat";
       long = data.description + "long";
-      pic1 = "";
+      /// pic1 = "https://www.panpuri.com/asset/images/product/noimg.jpg";
     }
 
     var placeobject = {
@@ -32,7 +32,7 @@ export default function Home({ navigation }) {
       latitude: lat,
       longitude: long,
       no: 2424,
-      pic1: "",
+      pic1: "https://www.panpuri.com/asset/images/product/noimg.jpg",
     };
     console.log(placeobject);
     navigation.navigate("Details", { placedata: placeobject, from: "search" });
