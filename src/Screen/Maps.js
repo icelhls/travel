@@ -20,6 +20,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Iconui from "@expo/vector-icons/MaterialCommunityIcons";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import * as Location from "expo-location";
+import config from "../config";
 
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = 220;
@@ -45,7 +46,7 @@ export function Maps({ navigation, route }) {
 
   const origin = { latitude: lat, longitude: long };
   const destination = { latitude: 33.6844, longitude: 73.0479 };
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAhwDsbb1ky0UUyUXm-YlCDsD7diI83g9U";
+  const GOOGLE_MAPS_APIKEY = config.mapapi;
   //const GOOGLE_MAPS_APIKEY = "";
 
   useEffect(() => {

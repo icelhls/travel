@@ -213,17 +213,6 @@ export function Home({ navigation }) {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => changeIntrests()}>
-              <Feather
-                name="changeIntrests"
-                size={32}
-                color={colors.white}
-                style={{
-                  marginTop: 30,
-                }}
-              />
-            </TouchableOpacity>
-
             <View
               style={{
                 flexDirection: "row",
@@ -308,15 +297,29 @@ export function Home({ navigation }) {
 
           {/* Discover */}
           <View style={styles.discoverWrapper}>
-            <Text style={styles.discoverTitle}>Discover</Text>
-            {/* <View style={styles.discoverCategoriesWrapper}>
-            <Text style={[styles.discoverCategoryText, {color: colors.orange}]}>
-              All
-            </Text>
-            <Text style={styles.discoverCategoryText}>Destinations</Text>
-            <Text style={styles.discoverCategoryText}>Cities</Text>
-            <Text style={styles.discoverCategoryText}>Experiences</Text>
-          </View> */}
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.discoverTitle}>Discover</Text>
+              <TouchableOpacity onPress={() => changeIntrests()}>
+                <Feather
+                  name="filter"
+                  size={20}
+                  color={colors.dark}
+                  style={{
+                    marginTop: 10,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.discoverCategoriesWrapper}>
+              {/* <Text
+                style={[styles.discoverCategoryText, { color: colors.orange }]}
+              >
+                All
+              </Text>
+              <Text style={styles.discoverCategoryText}>Destinations</Text>
+              <Text style={styles.discoverCategoryText}>Cities</Text>
+              <Text style={styles.discoverCategoryText}>Experiences</Text> */}
+            </View>
             <View style={styles.discoverItemsWrapper}>
               <FlatList
                 data={discoverLocation}

@@ -28,7 +28,7 @@ const BottomTabNavigator = () => {
 
           if (route.name === "Home") {
             iconName = focused ? "ios-home" : "ios-home";
-          } else if (route.name === "Maps") {
+          } else if (route.name === "Test") {
             iconName = focused ? "ios-map" : "ios-map";
           }
 
