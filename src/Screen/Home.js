@@ -87,6 +87,16 @@ export function Home({ navigation }) {
     return;
   };
 
+  const logOut = async () => {
+    removetoken("travelapp");
+    navigation.navigate("Signin");
+  };
+
+  const changeIntrests = async () => {
+    removetoken("interests");
+    navigation.navigate("Recommendation");
+  };
+
   const fetchuserdata = async () => {
     var obje = await gettoken("travelapp");
     setfname(JSON.parse(obje).fname);
@@ -192,7 +202,7 @@ export function Home({ navigation }) {
               paddingHorizontal: 20,
             }}
           >
-            <TouchableOpacity onPress={() => removetoken("travelapp")}>
+            <TouchableOpacity onPress={() => logOut()}>
               <Feather
                 name="log-out"
                 size={32}
@@ -202,6 +212,18 @@ export function Home({ navigation }) {
                 }}
               />
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => changeIntrests()}>
+              <Feather
+                name="changeIntrests"
+                size={32}
+                color={colors.white}
+                style={{
+                  marginTop: 30,
+                }}
+              />
+            </TouchableOpacity>
+
             <View
               style={{
                 flexDirection: "row",
@@ -224,8 +246,7 @@ export function Home({ navigation }) {
               <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Image
                   source={{
-                    uri:
-                      "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                    uri: "https://image.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
                   }}
                   style={{ height: 60, width: 60, borderRadius: 60 }}
                 />

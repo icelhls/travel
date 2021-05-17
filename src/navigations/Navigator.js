@@ -42,7 +42,7 @@ const BottomTabNavigator = () => {
       }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Maps" component={Maps} />
+      <Tab.Screen name="Test" component={Test} />
     </Tab.Navigator>
   );
 };
@@ -101,6 +101,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Test" component={Test} />
             <Tab.Screen name="Maps" component={Maps} />
             <Stack.Screen name="Recommendation" component={Recommendation} />
+            <Stack.Screen name="Search" component={Searchpage} />
             <Stack.Screen name="Details" component={Details} />
           </>
         ) : (

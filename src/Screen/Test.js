@@ -28,10 +28,10 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.5;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 20;
 
-export default function Test() {
+export default function Test({ navigation, route }) {
   const [alllocations, setalllocations] = useState([]);
   const [markers, setmarkers] = useState([]);
-
+  const serverpoint = require("../config");
   const Images = [
     { image: require("../assets/images/beach.png") },
     { image: require("../assets/images/boatbeach.png") },
@@ -43,16 +43,13 @@ export default function Test() {
     var lat = 74.2227181;
     var long = 31.4137617;
 
-    const response = await fetch(
-      "http://192.168.0.100:5000" + "/getLocations",
-      {
-        method: "post",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-        },
-        body: `lat=${lat}&long=${long}`,
-      }
-    );
+    const response = await fetch(serverpoint.servername + "/getLocations", {
+      method: "post",
+      headers: {
+        "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+      },
+      body: `lat=${lat}&long=${long}`,
+    });
     const json = await response.json();
 
     setalllocations(json);
@@ -74,9 +71,9 @@ export default function Test() {
         latitude: alllocations[i].latitude,
         longitude: alllocations[i].longitude,
       },
-      title: "Amazing Food Place",
+      title: alllocations[i].title,
       description: "This is the best food place",
-      image: Images[0].image,
+      image: { uri: alllocations[i].pic1 },
       rating: 4,
       reviews: 99,
     });
@@ -235,6 +232,7 @@ export default function Test() {
         <TextInput
           placeholder="Search here"
           placeholderTextColor="#000"
+          onFocus={() => navigation.navigate("Search")}
           autoCapitalize="none"
           style={{ flex: 1, padding: 0 }}
         />

@@ -143,7 +143,10 @@ export default function Details({ navigation, route }) {
           </Text> */}
         </View>
         <Tab.Navigator>
-          <Tab.Screen name="Details" component={Detailsmore} />
+          <Tab.Screen
+            name="Details"
+            component={() => <Detailsmore placeid={placedata} />}
+          />
           <Tab.Screen name="Reviews" component={YourComponent} />
           {/* component={Reviews}
           /> */}

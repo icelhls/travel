@@ -33,8 +33,9 @@ export default function Home({ navigation }) {
       longitude: long,
       no: 2424,
       pic1: "https://www.panpuri.com/asset/images/product/noimg.jpg",
+      alldata: data,
     };
-    console.log(placeobject);
+    //// console.log(placeobject);
     navigation.navigate("Details", { placedata: placeobject, from: "search" });
   }
   return (

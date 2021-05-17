@@ -26,13 +26,20 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 
 export function Maps({ navigation, route }) {
-  // const { placedata } = route.params;
-  ///alert(placedata.latitude);
+  const { placedata } = route.params ?? {};
+  var mylat = 0;
+  var mylong = 0;
+  if (typeof placedata == "undefined") {
+  } else {
+    mylat = placedata.latitude;
+    mylong = placedata.longitude;
+  }
+  const serverpoint = require("../config");
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [lat, setlat] = useState(0);
-  const [long, setlong] = useState(0);
+  const [lat, setlat] = useState(mylat);
+  const [long, setlong] = useState(mylong);
 
   const [alllocations, setalllocations] = useState([]);
 
@@ -50,17 +57,14 @@ export function Maps({ navigation, route }) {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      // var myModule = require('../../config');
-      // const response = await fetch(
-      //   "http://192.168.1.105:5000" + "/api/getLocations",
-      //   {
-      //     method: "post",
-      //     headers: {
-      //       "content-type": "application/x-www-form-urlencoded; charset=utf-8",
-      //     },
-      //     body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
-      //   }
-      // );
+
+      // const response = await fetch(serverpoint + "/api/getLocations", {
+      //   method: "post",
+      //   headers: {
+      //     "content-type": "application/x-www-form-urlencoded; charset=utf-8",
+      //   },
+      //   body: `lat=${location.coords.latitude}&long=${location.coords.longitude}`,
+      // });
       // const json = await response.json();
 
       // setalllocations(json);
@@ -68,7 +72,7 @@ export function Maps({ navigation, route }) {
       // setLocation(location);
       // setlat(json[0].latitude);
       // setlong(json[0].longitude);
-      setlat(location.coords.latitude);
+      setlat(location.coords.olatitude);
 
       setlong(location.coords.longitude);
     })();
@@ -131,13 +135,14 @@ export function Maps({ navigation, route }) {
         <TextInput
           placeholder="Search here"
           placeholderTextColor="#000"
+          onFocus={() => navigation.navigate("Search")}
           autoCapitalize="none"
           style={{ flex: 1, padding: 0 }}
         />
         <Icon name="ios-search" size={20} />
       </View>
 
-      <ScrollView
+      {/* <ScrollView
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
@@ -299,7 +304,7 @@ export function Maps({ navigation, route }) {
             <Iconui name="map-marker" size={25} color="#bb32fe" />
           </View>
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </>
   );
 }
