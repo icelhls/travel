@@ -39,13 +39,11 @@ export default function Detailsmore(props) {
   }
   if (props.placeid.hasOwnProperty("rating")) {
     if (props.placeid.rating != null) {
-      GoogleRating = "Google Rating:" + props.placeid.rating;
+      GoogleRating = "Rating:" + props.placeid.rating;
     }
   }
 
   if (props.placeid.hasOwnProperty("alldata")) {
-    console.log("-------hahahha---");
-
     console.log(props.placeid.alldata);
 
     //  alert(props.placeid.alldata.types);
@@ -54,14 +52,14 @@ export default function Detailsmore(props) {
       Address = "Address :" + props.placeid.alldata.vicinity;
     }
     if (props.placeid.alldata.hasOwnProperty("rating")) {
-      GoogleRating = "Google Rating:" + props.placeid.alldata.rating;
+      GoogleRating = "Rating:" + props.placeid.alldata.rating;
     }
     if (props.placeid.alldata.hasOwnProperty("rating")) {
       TotalUSerRating =
-        "Total USer Rating:" + props.placeid.alldata.user_ratings_total;
+        "Total Rating:" + props.placeid.alldata.user_ratings_total;
     }
     if (props.placeid.alldata.hasOwnProperty("types")) {
-      placeType = "Place Type:" + props.placeid.alldata.types;
+      placeType = "Category:" + props.placeid.alldata.types;
     }
   }
 
@@ -154,8 +152,9 @@ const styles = StyleSheet.create({
   mapview: {
     marginTop: 20,
     padding: 5,
+    marginBottom: 200,
   },
   map: {
-    height: "70%",
+    height: "100%",
   },
 });
