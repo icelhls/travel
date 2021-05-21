@@ -87,10 +87,10 @@ export default function Details({ navigation, route }) {
               <Icon
                 name="arrow-back"
                 size={28}
-                color={COLORS.white}
+                color={COLORS.black}
                 onPress={() => navigation.navigate("Home")}
               />
-              <Icon name="more-vert" size={28} color={COLORS.white} />
+              <Icon name="more-vert" size={28} color={COLORS.black} />
             </View>
             <View style={style.imageDetails}>
               <Text

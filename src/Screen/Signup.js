@@ -65,15 +65,10 @@ export default function Signup({ navigation }) {
   async function facebooklogIn() {
     try {
       await Facebook.initializeAsync("1667224953462264");
-      const {
-        type,
-        token,
-        expirationDate,
-        permissions,
-        declinedPermissions,
-      } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ["public_profile"],
-      });
+      const { type, token, expirationDate, permissions, declinedPermissions } =
+        await Facebook.logInWithReadPermissionsAsync({
+          permissions: ["public_profile"],
+        });
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
@@ -146,7 +141,7 @@ export default function Signup({ navigation }) {
           img: user.photoUrl,
         })
         .then(res => {
-          alert(res.data);
+          alert("Sign In for Login");
           console.log(res.data);
         });
     }
@@ -185,7 +180,7 @@ export default function Signup({ navigation }) {
           pass: pass,
         })
         .then(res => {
-          alert(res.data);
+          alert("Sign In for Login");
         });
     }
   }

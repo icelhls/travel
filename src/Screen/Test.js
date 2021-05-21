@@ -238,7 +238,7 @@ export default function Test({ navigation, route }) {
         />
         <Ionicons name="ios-search" size={20} />
       </View>
-      <ScrollView
+      {/* <ScrollView
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
@@ -261,7 +261,7 @@ export default function Test({ navigation, route }) {
             <Text>{category.name}</Text>
           </TouchableOpacity>
         ))}
-      </ScrollView>
+      </ScrollView> */}
 
       <Animated.ScrollView
         ref={_scrollView}

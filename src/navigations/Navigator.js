@@ -28,7 +28,7 @@ const BottomTabNavigator = () => {
 
           if (route.name === "Home") {
             iconName = focused ? "ios-home" : "ios-home";
-          } else if (route.name === "Test") {
+          } else if (route.name === "Map") {
             iconName = focused ? "ios-map" : "ios-map";
           }
 
@@ -42,7 +42,7 @@ const BottomTabNavigator = () => {
       }}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Test" component={Test} />
+      <Tab.Screen name="Map" component={Test} />
     </Tab.Navigator>
   );
 };
@@ -111,7 +111,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Search" component={Searchpage} />
 
             <Tab.Screen name="Maps" component={Maps} />
-            <Stack.Screen name="Signup" component={Signin} />
+            <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Test" component={Test} />
 
             <Stack.Screen name="Signin" component={Signin} />
