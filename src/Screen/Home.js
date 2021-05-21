@@ -27,6 +27,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { getToken } from "../globalFunction/getToken";
+import { getTokenIntrests } from "../globalFunction/getToken";
 import { removetoken } from "../globalFunction/getToken";
 Feather.loadFont();
 Entypo.loadFont();
@@ -41,7 +42,7 @@ export function Home({ navigation }) {
   const serverpoint = require("../config");
 
   async function getlocationbymodel() {
-    var interests = await getToken("interests");
+    var interests = await getTokenIntrests("interests");
 
     axios
       .post(serverpoint.servername + "/getDiscoverLocation", {

@@ -16,6 +16,22 @@ export const getToken = async key => {
   return;
 };
 
+export const getTokenIntrests = async key => {
+  try {
+    const retrievedItem = await AsyncStorage.getItem(key);
+    const item = retrievedItem;
+
+    if (item != null) {
+      return retrievedItem;
+    } else {
+      return "";
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+  return;
+};
+
 export const removetoken = async key => {
   try {
     await AsyncStorage.removeItem(key);
